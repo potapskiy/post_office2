@@ -9,6 +9,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+
+
 <title>Login page</title>
 </head>
 <body>
@@ -26,7 +30,9 @@
 
 						<tr>
 							<td>Login:</td>
-							<td><input type="text" name="login" /></td>
+							<td><input type="text" name="loginField" id="loginField" />
+							<span id="user-result"></span>
+							</td>
 						</tr>
 						<tr>
 							<td>Password:</td>
@@ -46,6 +52,17 @@
 
 	</center>
 
+<script type="text/javascript">
+
+	$( "#loginField" ).keyup(function(event) {
+	
+		var userlogin = $(this).val();
+		$.post('./rest/check_login', {'userlogin':userlogin}, function(data) { 
+			   $("#user-result").html(data);
+			   });
+	});
+	
+</script>
 
 </body>
 </html>

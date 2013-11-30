@@ -26,14 +26,10 @@ public class DBConnector {
 
 		try {
 
-			String url = PropertiesOperations
-					.getProperty(PropertiesOperations.LOCAL_DB_URL);
-			String user = PropertiesOperations
-					.getProperty(PropertiesOperations.LOCAL_DB_USER);
-			String password = PropertiesOperations
-					.getProperty(PropertiesOperations.LOCAL_DB_PASSWORD);
-			String driver_name = PropertiesOperations
-					.getProperty(PropertiesOperations.LOCAL_DB_DRIVER_NAME);
+			String url = DBParams.LOCAL_DB_URL;
+			String user = DBParams.LOCAL_DB_USER;
+			String password = DBParams.LOCAL_DB_PASSWORD;
+			String driver_name = DBParams.LOCAL_DB_DRIVER_NAME;
 
 			Class.forName(driver_name);
 

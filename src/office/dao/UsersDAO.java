@@ -173,6 +173,7 @@ public class UsersDAO {
 		try {
 			ps = conn.prepareStatement(query);
 			ps.setString(1, tel);
+			ps.setString(2, pas);
 			resultSet = ps.executeQuery();
 			while (resultSet.next()) {
 				res = true;

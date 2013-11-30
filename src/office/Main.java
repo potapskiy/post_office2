@@ -12,10 +12,10 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		PropertiesOperations.setProperties();
+		//PropertiesOperations.setProperties();
 
 		
-		System.out.println(SHAHashing.getHash("asdad asddasdawesad"));
+		System.out.println(SHAHashing.getHash("123"));
 	}
 
 	

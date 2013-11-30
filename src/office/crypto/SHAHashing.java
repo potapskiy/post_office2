@@ -3,6 +3,7 @@ package office.crypto;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import office.dao.DBParams;
 import office.properties.PropertiesOperations;
 
 public class SHAHashing {
@@ -34,8 +35,7 @@ public class SHAHashing {
 
 	public static String getHash(String stringToHash) {
 
-		String salt = PropertiesOperations
-				.getProperty(PropertiesOperations.SALT);
+		String salt = DBParams.SALT;
 
 		return SHA1Hashing(SHA1Hashing(stringToHash).concat(salt));
 

@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpSession;
 
+import office.crypto.SHAHashing;
+import office.dao.UsersDAO;
+
 /**
  * LoginCommand is Command, which make user authorization
  * 
@@ -28,20 +31,19 @@ public class LoginCommand implements Command{
             throws IOException, ServletException {
         request.setCharacterEncoding("UTF-8");
         
-        String login = request.getParameter("login");
+        String login = request.getParameter("loginField");
         String pass = request.getParameter("pass");
         
         System.out.println(login + "  "+ pass);
         
         
-//       try {
-//			SHAHashing hashing = new SHAHashing(pass);
-//			pass = hashing.getHashString();
-//			
-//		} catch (NoSuchAlgorithmException e) {
-//			System.out.println("NoSuchAlgorithmException");
-//		}
-//        
+		
+		String passHash = SHAHashing.getHash(pass);
+		
+		UsersDAO usersDAO = new UsersDAO();
+		
+		System.out.println(usersDAO.isUserTelAndPassCorrect(login, passHash));
+        
 //        
 //        
 //        DAOFactory factory = DAOFactory.getDAOFactory(DAOFactory.MYSQL);
