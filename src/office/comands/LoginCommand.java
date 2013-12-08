@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import office.crypto.SHAHashing;
 import office.dao.UsersDAO;
+import office.entities.User;
 
 /**
  * LoginCommand is Command, which make user authorization
@@ -42,8 +43,20 @@ public class LoginCommand implements Command{
 		
 		UsersDAO usersDAO = new UsersDAO();
 		
-		System.out.println(usersDAO.isUserTelAndPassCorrect(login, passHash));
-        
+		boolean userExists = usersDAO.isUserTelAndPassCorrect(login, passHash);
+		
+		System.out.println(userExists);
+		
+		if (userExists){
+			User user = usersDAO.getUserByTelephone(login);
+			request.removeAttribute("Error");
+			HttpSession session = request.getSession(true);
+            session.setAttribute("user", user);
+            dispatcher =  request.getRequestDispatcher("/pages/index.jsp");
+		}else {
+            request.setAttribute("Error","error.autofailed");
+            dispatcher =  request.getRequestDispatcher("/pages/index.jsp");
+        }
 //        
 //        
 //        DAOFactory factory = DAOFactory.getDAOFactory(DAOFactory.MYSQL);
@@ -55,8 +68,8 @@ public class LoginCommand implements Command{
 //            session.setAttribute("user", user);
 //            dispatcher =  request.getRequestDispatcher("/pages/main.jsp");
 //        } else {
-            request.setAttribute("Error","error.autofailed");
-            dispatcher =  request.getRequestDispatcher("/pages/index.jsp");
+//            request.setAttribute("Error","error.autofailed");
+//            dispatcher =  request.getRequestDispatcher("/pages/index.jsp");
 //        }
     }
 

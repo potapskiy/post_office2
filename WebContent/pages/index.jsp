@@ -1,7 +1,13 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+   
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<fmt:requestEncoding value="UTF-8" />
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Green Real State</title>
+<title>Нова пошта++</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="css/style.css" rel="stylesheet" type="text/css" />
 <script src="js/login.js" type="text/javascript"></script>
@@ -94,31 +100,41 @@
 					</div>
 				</div>
 			</div>
+			
+			<c:choose>
+            <c:when test="${empty user}">
+			
 			<form name="loginForm" action="controller" method="post">
 				<div class="right_body_wrap">
 					<div class="right_body_bg">
 						<div class="login_wrap">
+							<input type="hidden" name="command" value="login">
+							
 							<p class="user_text">ВХІД</p>
+							
 							<p class="user_name_text">
-								логін<span style="color: #f60219;"> *</span>
+								телефон<span style="color: #f60219;"> *</span>
 							</p>
 							<p style="padding: 8px 0 0 28px;">
-								<input type="text" name="enter your name" maxlength="20"
-									class="contact_filed" value="введіть логін"
-									onfocus="javascript:clearField(this,'введіть логін')"
-									onblur="javacript:fillField(this,'введіть логін')" />
+								<input type="text" name="loginField" maxlength="50"
+									class="contact_filed" value="введіть телефон"
+									onfocus="javascript:clearField(this,'введіть телефон')"
+									onblur="javacript:fillField(this,'введіть телефон')" />
 							</p>
 							<p class="user_name_text1">
 								пароль<span style="color: #f60219;"> *</span>
 							</p>
 							<p style="padding: 8px 0 0 28px;">
-								<input type="password" name="password" maxlength="20"
+								<input type="password" name="pass" maxlength="50"
 									class="contact_filed" value="password"
 									onfocus="javascript:clearField(this,'password')"
 									onblur="javacript:fillField(this,'password')" />
 							</p>
 							<p style="padding: 16px 0 0 16px;">								
-								<a href="controller?page=aboutus.jsp" class="log">Увійти</a>								
+								<a href="#" onclick="document.forms['loginForm'].submit(); return false;" class="log">Увійти</a>								
+							</p>
+							<p class="user_name_text">
+							<c:if test="${not empty Error}">Невірний телефон або пароль</c:if>
 							</p>
 							<p style="padding: 12px 0 0 16px;">
 								<a href="#" class="read_more1">Створити новий акаунт</a>
@@ -127,6 +143,17 @@
 					</div>
 				</div>
 			</form>
+			
+			</c:when>
+			
+			<c:otherwise>
+                <table border="1">
+                    <tr>
+                        <td>${user.firstName}</td>
+                    </tr>    
+                </table>
+            </c:otherwise>
+        </c:choose>
 			<br class="blank" />
 		</div>
 	</div>
