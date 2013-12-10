@@ -25,13 +25,11 @@
 			</div>
 			<div class="navarea_wrap">
 				<div class="nav_wrap">
-					<form name="mainMenuForm" action="controller" method="post">
-						<input type="hidden" name="command" value="page">
+					
 							<ul>
-								<li><a href="/controller?page=index"									
+								<li><a href="./index"									
 									class="homeactive">	Головна</a></li>
-								<li><a id="aboutus" href="#"
-									onclick="document.forms['mainMenuForm'].submit(); return false;"
+								<li><a id="aboutus" href="./about"
 									class="home">
 									Про нас</a></li>
 								<li><a id="services" href="#"
@@ -41,7 +39,7 @@
 									onclick="document.forms['mainMenuForm'].submit(); return false;"
 									class="contact">Контакти</a></li>
 							</ul>
-					</form>
+					
 
 
 					<br class="blank" />
