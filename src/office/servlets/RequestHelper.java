@@ -1,7 +1,9 @@
 package office.servlets;
 
 import java.util.HashMap;
+
 import javax.servlet.http.HttpServletRequest;
+
 import office.comands.*;
 
 public class RequestHelper {
@@ -13,6 +15,8 @@ public class RequestHelper {
 	private RequestHelper() {
 		//puts commands name
 		commands.put("login", new LoginCommand());
+		commands.put("logout", new LogoutCommand());
+		commands.put("page", new PageCommand());
 //		commands.put("addrecord", new AddRecordCommand());
 //		commands.put("showhistory", new ShowHistoryCommand());
 //		commands.put("monthlystatistic", new MonthlyStatisticCommand());

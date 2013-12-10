@@ -248,19 +248,30 @@ body {
 	background:url(../images/login_bg.jpg) 0 0 no-repeat;
 	height:295px;
 }
+.right_body_loginned_bg {
+	width:255px;
+	float:left;
+	background:url(../images/loginned_bg.jpg) 0 0 no-repeat;
+	height:295px;
+}
 .login_wrap {
 	width:215px;
 	margin:0 auto;
 }
 .user_text {
 	font:bold 24px Trajan Pro, Arial, Helvetica, sans-serif;
-	color:#98aa1e;
+	color:#898989;
 	text-transform:uppercase;
 	padding:32px 0 0 0;
 }
 .user_name_text {
 	font:normal 11px Tahoma, Arial, Helvetica, sans-serif;
 	color:#576370;
+	padding:12px 0 0 28px;
+}
+.user_name_error_text {
+	font:normal 11px Tahoma, Arial, Helvetica, sans-serif;
+	color:#FF0000;
 	padding:12px 0 0 28px;
 }
 .contact_filed {
