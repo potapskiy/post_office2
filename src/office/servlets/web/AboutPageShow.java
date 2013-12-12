@@ -48,7 +48,7 @@ public class AboutPageShow extends HttpServlet {
 		System.out.println("GET");
 	
 
-		dispatcher = request.getRequestDispatcher("pages/aboutus.jsp");
+		dispatcher = request.getRequestDispatcher("pages/about.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -63,7 +63,7 @@ public class AboutPageShow extends HttpServlet {
 //		HttpSession session = request.getSession(false);
 		
 		System.out.println("POST");
-		dispatcher = request.getRequestDispatcher("pages/aboutus.jsp");
+		dispatcher = request.getRequestDispatcher("pages/about.jsp");
 		dispatcher.forward(request, response);
 	}
 	

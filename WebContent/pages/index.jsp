@@ -20,26 +20,19 @@
 		<div class="main_area">
 			<div class="logo_wrap">
 				<p class="logo_pad">
-					<a href="#"><img src="images/logo_all.jpg" alt="" border="0" /></a>
+					<a href="./index"><img src="images/logo_all.jpg" alt="" border="0" /></a>
 				</p>
 			</div>
 			<div class="navarea_wrap">
 				<div class="nav_wrap">
-					
-							<ul>
-								<li><a href="./index"									
-									class="homeactive">	Головна</a></li>
-								<li><a id="aboutus" href="./about"
-									class="home">
-									Про нас</a></li>
-								<li><a id="services" href="#"
-									onclick="document.forms['mainMenuForm'].submit(); return false;"
-									class="home">Послуги</a></li>
-								<li><a id=contacts " href="#"
-									onclick="document.forms['mainMenuForm'].submit(); return false;"
-									class="contact">Контакти</a></li>
-							</ul>
-					
+
+					<ul>
+						<li><a href="./index" class="homeactive"> Головна</a></li>
+						<li><a href="./about" class="home"> Про нас</a></li>
+						<li><a href="./services" class="home">Послуги</a></li>
+						<li><a href="./contacts" class="contact">Контакти</a></li>
+					</ul>
+
 
 
 					<br class="blank" />
@@ -187,9 +180,9 @@
 		<div class="footer_area">
 			<div class="footer_nav_area">
 				<p class="footer_nav_text">
-					<a href="#" class="footeractive">Головна</a> | <a href="#"
-						class="footer">Про нас</a> | <a href="#" class="footer">Послуги</a>
-					| <a href="#" class="footer">Контакти</a>
+					<a href="./index" class="footeractive">Головна</a> | <a href="./about"
+						class="footer">Про нас</a> | <a href="./services" class="footer">Послуги</a>
+					| <a href="./contacts" class="footer">Контакти</a>
 				</p>
 			</div>
 			<div class="copy_wrap">

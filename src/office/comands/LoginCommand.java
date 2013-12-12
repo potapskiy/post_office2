@@ -36,19 +36,15 @@ public class LoginCommand implements Command{
         String pass = request.getParameter("pass");
         
         System.out.println(login + "  "+ pass);
-        
-        
+        		
+		//String passHash = SHAHashing.getHash(pass);		
+		//UsersDAO usersDAO = new UsersDAO();		
+		//boolean userExists = usersDAO.isUserTelAndPassCorrect(login, passHash);		
+		//System.out.println(userExists);
 		
-		String passHash = SHAHashing.getHash(pass);
-		
-		UsersDAO usersDAO = new UsersDAO();
-		
-		boolean userExists = usersDAO.isUserTelAndPassCorrect(login, passHash);
-		
-		System.out.println(userExists);
-		
-		if (userExists){
-			User user = usersDAO.getUserByTelephone(login);
+		if (login.equals("admin") && pass.equals("admin")){
+			//User user = usersDAO.getUserByTelephone(login);
+			User user = new User(login, pass, "Sergiy", "Skyrda", "Kiev");
 			request.removeAttribute("Error");
 			HttpSession session = request.getSession(true);
             session.setAttribute("user", user);
