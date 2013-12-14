@@ -98,7 +98,7 @@
 										<c:if test="${not empty Error}">Невірний телефон або пароль</c:if>
 									</p>
 									<p style="padding: 12px 0 0 16px;">
-										<a href="#" class="read_more1">Створити новий акаунт</a>
+										<a href="./create_acc" class="read_more1">Створити новий акаунт</a>
 									</p>
 								</div>
 							</div>

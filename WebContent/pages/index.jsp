@@ -20,7 +20,8 @@
 		<div class="main_area">
 			<div class="logo_wrap">
 				<p class="logo_pad">
-					<a href="./index"><img src="images/logo_all.jpg" alt="" border="0" /></a>
+					<a href="./index"><img src="images/logo_all.jpg" alt=""
+						border="0" /></a>
 				</p>
 			</div>
 			<div class="navarea_wrap">
@@ -73,34 +74,34 @@
 									</div>
 									<br class="blank" />
 								</div>
-								<div class="watch_main_wrap">
-									<div class="watch_wrap">
-										<img src="images/turtle.jpg" alt="" />
-									</div>
-									<div class="watch_wrap1">
-										<p>
-											<span><a class="nulla">Швидкість</a></span><br /> <br /> <span
-												style="line-height: 18px;">Найновіші вантажні
-												автомобілі та швидке і якісне обслуговування клієнтів
-												забезпечують швидку доставку вантажів в цілому. </span><br /> <br />
-										</p>
-									</div>
-									<br class="blank" />
-								</div>
-								<div class="watch_main_wrap">
-									<div class="watch_wrap">
-										<img src="images/ikarus.jpg" alt="" />
-									</div>
-									<div class="watch_wrap1">
-										<p>
-											<span><a class="nulla">Комфорт</a></span><br /> <br /> <span
-												style="line-height: 18px;">Наші автобуси забезпечать
-												Вам кофморт під час поїздки. Вам залишається тільки обрати
-												маршрут.</span><br /> <br />
-										</p>
-									</div>
-									<br class="blank" />
-								</div>
+						<div class="watch_main_wrap">
+							<div class="watch_wrap">
+								<img src="images/turtle.jpg" alt="" />
+							</div>
+							<div class="watch_wrap1">
+								<p>
+									<span><a class="nulla">Швидкість</a></span><br /> <br /> <span
+										style="line-height: 18px;">Найновіші вантажні
+										автомобілі та швидке і якісне обслуговування клієнтів
+										забезпечують швидку доставку вантажів в цілому. </span><br /> <br />
+								</p>
+							</div>
+							<br class="blank" />
+						</div>
+						<div class="watch_main_wrap">
+							<div class="watch_wrap">
+								<img src="images/ikarus.jpg" alt="" />
+							</div>
+							<div class="watch_wrap1">
+								<p>
+									<span><a class="nulla">Комфорт</a></span><br /> <br /> <span
+										style="line-height: 18px;">Наші автобуси забезпечать
+										Вам кофморт під час поїздки. Вам залишається тільки обрати
+										маршрут.</span><br /> <br />
+								</p>
+							</div>
+							<br class="blank" />
+						</div>
 					</div>
 				</div>
 			</div>
@@ -143,7 +144,8 @@
 										<c:if test="${not empty Error}">Невірний телефон або пароль</c:if>
 									</p>
 									<p style="padding: 12px 0 0 16px;">
-										<a href="#" class="read_more1">Створити новий акаунт</a>
+										<a href="./createacc" class="read_more1">Створити новий
+											акаунт</a>
 									</p>
 								</div>
 							</div>
@@ -180,9 +182,9 @@
 		<div class="footer_area">
 			<div class="footer_nav_area">
 				<p class="footer_nav_text">
-					<a href="./index" class="footeractive">Головна</a> | <a href="./about"
-						class="footer">Про нас</a> | <a href="./services" class="footer">Послуги</a>
-					| <a href="./contacts" class="footer">Контакти</a>
+					<a href="./index" class="footeractive">Головна</a> | <a
+						href="./about" class="footer">Про нас</a> | <a href="./services"
+						class="footer">Послуги</a> | <a href="./contacts" class="footer">Контакти</a>
 				</p>
 			</div>
 			<div class="copy_wrap">

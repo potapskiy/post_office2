@@ -409,3 +409,8 @@ a.footer:hover, a.footeractive {
 	font:bold 11px/18px Tahoma, Arial, Helvetica, sans-serif;
 	color:#f7931d;
 }
+.center_body_bg {
+	width:469px;	
+	background:url(../images/register_bg.jpg) 0 0 no-repeat;
+	height:466px;
+}
