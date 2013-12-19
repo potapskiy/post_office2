@@ -44,7 +44,8 @@ public class LoginCommand implements Command{
 		
 		if (login.equals("admin") && pass.equals("admin")){
 			//User user = usersDAO.getUserByTelephone(login);
-			User user = new User(login, pass, "Sergiy", "Skyrda", "Kiev");
+			User user = new User(login, pass, "Sergiy", "Skyrda", "Kiev", User.MANAGER);
+			
 			request.removeAttribute("Error");
 			HttpSession session = request.getSession(true);
             session.setAttribute("user", user);

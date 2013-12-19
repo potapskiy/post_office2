@@ -74,34 +74,34 @@
 									</div>
 									<br class="blank" />
 								</div>
-						<div class="watch_main_wrap">
-							<div class="watch_wrap">
-								<img src="images/turtle.jpg" alt="" />
-							</div>
-							<div class="watch_wrap1">
-								<p>
-									<span><a class="nulla">Швидкість</a></span><br /> <br /> <span
-										style="line-height: 18px;">Найновіші вантажні
-										автомобілі та швидке і якісне обслуговування клієнтів
-										забезпечують швидку доставку вантажів в цілому. </span><br /> <br />
-								</p>
-							</div>
-							<br class="blank" />
-						</div>
-						<div class="watch_main_wrap">
-							<div class="watch_wrap">
-								<img src="images/ikarus.jpg" alt="" />
-							</div>
-							<div class="watch_wrap1">
-								<p>
-									<span><a class="nulla">Комфорт</a></span><br /> <br /> <span
-										style="line-height: 18px;">Наші автобуси забезпечать
-										Вам кофморт під час поїздки. Вам залишається тільки обрати
-										маршрут.</span><br /> <br />
-								</p>
-							</div>
-							<br class="blank" />
-						</div>
+								<div class="watch_main_wrap">
+									<div class="watch_wrap">
+										<img src="images/turtle.jpg" alt="" />
+									</div>
+									<div class="watch_wrap1">
+										<p>
+											<span><a class="nulla">Швидкість</a></span><br /> <br /> <span
+												style="line-height: 18px;">Найновіші вантажні
+												автомобілі та швидке і якісне обслуговування клієнтів
+												забезпечують швидку доставку вантажів в цілому. </span><br /> <br />
+										</p>
+									</div>
+									<br class="blank" />
+								</div>
+								<div class="watch_main_wrap">
+									<div class="watch_wrap">
+										<img src="images/ikarus.jpg" alt="" />
+									</div>
+									<div class="watch_wrap1">
+										<p>
+											<span><a class="nulla">Комфорт</a></span><br /> <br /> <span
+												style="line-height: 18px;">Наші автобуси забезпечать
+												Вам кофморт під час поїздки. Вам залишається тільки обрати
+												маршрут.</span><br /> <br />
+										</p>
+									</div>
+									<br class="blank" />
+								</div>
 					</div>
 				</div>
 			</div>
@@ -162,8 +162,25 @@
 								<div class="login_wrap">
 									<p class="user_name_text">Ви увійшли як ${user.firstName}</p>
 									<p style="padding: 12px 0 0 16px;">
-										<a href="#" class="read_more1">Мій профіль</a>
-									</p>
+												<a href="./profile" class="read_more1">Мій профіль</a>
+											</p>
+									<c:choose>
+										<c:when test="${user.getKind() == 1}">
+											<p style="padding: 12px 0 0 16px;">
+												<a href="#" class="read_more1">Мої замовлення</a>
+											</p>
+										</c:when>
+										<c:when test="${user.getKind() == 2}">
+											<p style="padding: 12px 0 0 16px;">
+												<a href="#" class="read_more1">Зареєструвати посилку</a>
+											</p>
+											<p style="padding: 12px 0 0 16px;">
+												<a href="#" class="read_more1">Отримати посилку</a>
+											</p>										
+										</c:when>										
+
+									</c:choose>
+
 									<p style="padding: 16px 0 0 16px;">
 										<a href="#"
 											onclick="document.forms['logoutForm'].submit(); return false;"

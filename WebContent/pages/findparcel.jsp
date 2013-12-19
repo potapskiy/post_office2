@@ -20,16 +20,17 @@
 		<div class="main_area">
 			<div class="logo_wrap">
 				<p class="logo_pad">
-					<a href="./index"><img src="images/logo_all.jpg" alt="" border="0" /></a>
+					<a href="./index"><img src="images/logo_all.jpg" alt=""
+						border="0" /></a>
 				</p>
 			</div>
 			<div class="navarea_wrap">
 				<div class="nav_wrap">
 
 					<ul>
-						<li><a href="./index" class="home"> Головна</a></li>
+						<li><a href="./index" class="homeactive"> Головна</a></li>
 						<li><a href="./about" class="home"> Про нас</a></li>
-						<li><a href="./services" class="homeactive">Послуги</a></li>
+						<li><a href="./services" class="home">Послуги</a></li>
 						<li><a href="./contacts" class="contact">Контакти</a></li>
 					</ul>
 
@@ -47,16 +48,28 @@
 			<div class="left_body_wrap">
 				<div class="left_body_main">
 					<div class="main_wrap">
-						<p>
-							<span class="web_text"> Послуги</span><br /> <br /> <span
-								style="line-height: 18px;">
-								<ul>
-									<li><span><a class="nulla">Відправка документів та інших друкованих матеріалів</a></span></li>
-									<li><span><a class="nulla">Відправка посилок будь-якого об'єму та ваги</a></span></li>
-									<li><span><a class="nulla">Регулярні перевезення містами України</a></span></li>
-									<li><span><a href="./findparcel" class="nulla"> Відслідкувати вантаж </a></span></li>
-								</ul>
-							</span><br /> <br />
+						<c:choose>
+							<c:when test="${empty parcel}">
+								<form name="findParcelForm" action="controller" method="post">
+									<input type="hidden" name="command" value="findparcel" />
+									<p style="padding: 0px 0 0 50px;" class="text">
+										Введіть ідентифікаційний номер посилки <input type="text"
+											id="parcelIdField" name="parcelIdField" maxlength="50"
+											style="padding: 3px 0 0 10px;" class="contact_filed1"
+											value="" />
+										<p style="padding: 10px 0 0 260px;">
+											<a href="#"
+												onclick="document.forms['findParcelForm'].submit(); return false;"
+												class="log">Знайти</a>
+										</p>
+									</p>
+								</form>
+							</c:when>
+							<c:otherwise>
+								пасссссссссссссссссилкааааааааа
+								<% session.removeAttribute("parcel"); %>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 			</div>
@@ -70,37 +83,38 @@
 								<div class="login_wrap">
 									<input type="hidden" name="command" value="login">
 
-									<p class="user_text">ВХІД</p>
+										<p class="user_text">ВХІД</p>
 
-									<p class="user_name_text">
-										телефон<span style="color: #f60219;"> *</span>
-									</p>
-									<p style="padding: 8px 0 0 28px;">
-										<input type="text" name="loginField" maxlength="50"
-											class="contact_filed" value="введіть телефон"
-											onfocus="javascript:clearField(this,'введіть телефон')"
-											onblur="javacript:fillField(this,'введіть телефон')" />
-									</p>
-									<p class="user_name_text1">
-										пароль<span style="color: #f60219;"> *</span>
-									</p>
-									<p style="padding: 8px 0 0 28px;">
-										<input type="password" name="pass" maxlength="50"
-											class="contact_filed" value="password"
-											onfocus="javascript:clearField(this,'password')"
-											onblur="javacript:fillField(this,'password')" />
-									</p>
-									<p style="padding: 16px 0 0 16px;">
-										<a href="#"
-											onclick="document.forms['loginForm'].submit(); return false;"
-											class="log">Увійти</a>
-									</p>
-									<p class="user_name_error_text">
-										<c:if test="${not empty Error}">Невірний телефон або пароль</c:if>
-									</p>
-									<p style="padding: 12px 0 0 16px;">
-										<a href="./create_acc" class="read_more1">Створити новий акаунт</a>
-									</p>
+										<p class="user_name_text">
+											телефон<span style="color: #f60219;"> *</span>
+										</p>
+										<p style="padding: 8px 0 0 28px;">
+											<input type="text" name="loginField" maxlength="50"
+												class="contact_filed" value="введіть телефон"
+												onfocus="javascript:clearField(this,'введіть телефон')"
+												onblur="javacript:fillField(this,'введіть телефон')" />
+										</p>
+										<p class="user_name_text1">
+											пароль<span style="color: #f60219;"> *</span>
+										</p>
+										<p style="padding: 8px 0 0 28px;">
+											<input type="password" name="pass" maxlength="50"
+												class="contact_filed" value="password"
+												onfocus="javascript:clearField(this,'password')"
+												onblur="javacript:fillField(this,'password')" />
+										</p>
+										<p style="padding: 16px 0 0 16px;">
+											<a href="#"
+												onclick="document.forms['loginForm'].submit(); return false;"
+												class="log">Увійти</a>
+										</p>
+										<p class="user_name_error_text">
+											<c:if test="${not empty Error}">Невірний телефон або пароль</c:if>
+										</p>
+										<p style="padding: 12px 0 0 16px;">
+											<a href="./createacc" class="read_more1">Створити новий
+												акаунт</a>
+										</p>
 								</div>
 							</div>
 						</div>
@@ -136,9 +150,9 @@
 		<div class="footer_area">
 			<div class="footer_nav_area">
 				<p class="footer_nav_text">
-					<a href="./index" class="footer">Головна</a> | <a href="./about"
-						class="footer">Про нас</a> | <a href="./services" class="footeractive">Послуги</a>
-					| <a href="./contacts" class="footer">Контакти</a>
+					<a href="./index" class="footeractive">Головна</a> | <a
+						href="./about" class="footer">Про нас</a> | <a href="./services"
+						class="footer">Послуги</a> | <a href="./contacts" class="footer">Контакти</a>
 				</p>
 			</div>
 			<div class="copy_wrap">

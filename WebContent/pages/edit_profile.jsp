@@ -1,4 +1,5 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@page import="office.entities.User"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -12,6 +13,7 @@
 <link href="css/style.css" rel="stylesheet" type="text/css" />
 <script src="js/login.js" type="text/javascript"></script>
 <script src="js/register.js" type="text/javascript"></script>
+
 </head>
 <body>
 
@@ -52,17 +54,17 @@
 				<div class="left_body_wrap">
 					<div class="left_body_main">
 						<div class="main_wrap">
-							<form name="registerForm" action="controller" method="post">
-								<input type="hidden" name="command" value="register" />
-								<p style="padding: 25px 0 0 120px;" class="user_text">Реєстрація</p>
-
+							<form name="editProfileForm" action="controller" method="post">
+								<input type="hidden" name="command" value="edit_profile" />
+								<p style="padding: 25px 0 0 30px;" class="user_text">Редагування профілю</p>
+								<% User user = (User)session.getAttribute("user"); %>
 								<p style="padding: 40px 0 0 50px;" class="user_name_text">
-									телефон <span style="color: #f60219;"> *</span> +380 <input
+									телефон +380 <input
 										type="text" id="loginField" name="loginField" maxlength="50"
 										style="padding: 4px 0 0 20px;" class="contact_filed"
-										value="введіть телефон"
-										onfocus="javascript:clearField(this,'введіть телефон')"
-										onblur="javascript:fillField(this,'введіть телефон')" />
+										value="<%=user.getTelephone() %>"
+										onfocus="javascript:clearField(this,'<%=user.getTelephone() %>')"
+										onblur="javascript:fillField(this,'<%=user.getTelephone() %>')" />
 								</p>
 								<c:choose>
 									<c:when test="${not empty Error}">
@@ -79,48 +81,48 @@
 								</c:choose>
 
 								<p style="padding: 2px 0 0 80px;" class="user_name_text">
-									пароль<span style="color: #f60219;"> *</span> <input
+									пароль <input
 										type="password" id="passField" name="passField" maxlength="50"
 										style="padding: 15px 0 0 25px;" class="contact_filed"
-										value="password"
-										onfocus="javascript:clearField(this,'password')"
-										onblur="javascript:fillField(this,'password')" />
+										value=""
+										onfocus="javascript:clearField(this,'')"
+										onblur="javascript:fillField(this,'')" />
 								</p>
 								<p style="padding: 5px 0 0 120px;">
 									<a id="passError" class="user_name_error_text"></a>
 								</p>
 
 								<p style="padding: 2px 0 0 42px;" class="user_name_text">
-									ще раз пароль<span style="color: #f60219;"> *</span> <input
+									ще раз пароль<input
 										type="password" id="passConfirmField" name="passConfirmField" maxlength="50"
 										style="padding: 15px 0 0 25px;" class="contact_filed"
-										value="password"
-										onfocus="javascript:clearField(this,'password')"
-										onblur="javascript:fillField(this,'password')" />
+										value=""
+										onfocus="javascript:clearField(this,'')"
+										onblur="javascript:fillField(this,'')" />
 								</p>
 								<p style="padding: 5px 0 0 120px;">
 									<a id="passConfirmError" class="user_name_error_text"></a>
 								</p>
 
 								<p style="padding: 2px 0 0 98px;" class="user_name_text">
-									ім'я <span style="color: #f60219;"> *</span> <input type="text"
+									ім'я <input type="text"
 										id="firstNameField" name="firstNameField" maxlength="50"
 										style="padding: 15px 0 0 30px;" class="contact_filed"
-										value="введіть ім я"
-										onfocus="javascript:clearField(this,'введіть ім я')"
-										onblur="javascript:fillField(this,'введіть ім я')" />
+										value="<%=user.getFirstName() %>"
+										onfocus="javascript:clearField(this,'<%=user.getFirstName() %>')"
+										onblur="javascript:fillField(this,'<%=user.getFirstName() %>')" />
 								</p>
 								<p style="padding: 5px 0 0 120px;">
 									<a id="firstNameError" class="user_name_error_text"></a>
 								</p>
 
 								<p style="padding: 6px 0 0 68px;" class="user_name_text">
-									прізвище<span style="color: #f60219;"> *</span> <input
+									прізвище <input
 										type="text" id="lastNameField" name="lastNameField" maxlength="50"
 										style="padding: 15px 0 0 30px;" class="contact_filed"
-										value="введіть прізвище"
-										onfocus="javascript:clearField(this,'введіть прізвище')"
-										onblur="javascript:fillField(this,'введіть прізвище')" />
+										value="<%=user.getSecondName() %>"
+										onfocus="javascript:clearField(this,'<%=user.getSecondName() %>')"
+										onblur="javascript:fillField(this,'<%=user.getSecondName() %>')" />
 								</p>
 								<p style="padding: 5px 0 0 120px;">
 									<a id="lastNameError" class="user_name_error_text"></a>
@@ -129,13 +131,13 @@
 								<p style="padding: 4px 0 0 85px;" class="user_name_text">
 									адреса <input type="text" id="addressField" name="addressField" maxlength="50"
 										style="padding: 15px 0 0 30px;" class="contact_filed"
-										value="введіть адресу"
-										onfocus="javascript:clearField(this,'введіть адресу')"
-										onblur="javascript:fillField(this,'введіть адресу')" />
+										value="<%=user.getAddress() %>"
+										onfocus="javascript:clearField(this,'<%=user.getAddress() %>')"
+										onblur="javascript:fillField(this,'<%=user.getAddress() %>" />
 								</p>
 
 								<p style="padding: 30px 0 0 150px;">
-									<a href="#" onclick="javascript:validateForm();"
+									<a href="#" onclick="javascript:validateEditForm();"
 										class="log">Добре</a>
 								</p>								
 							</form>
