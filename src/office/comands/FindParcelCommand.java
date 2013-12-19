@@ -33,7 +33,7 @@ public class FindParcelCommand implements Command{
         request.setCharacterEncoding("UTF-8");
         
         String parcelId = request.getParameter("parcelIdField");
-        Parcel parcel = new Parcel(0,"123", "456", "0508276721", "Ivan", "Ivanchuk", "12.12.13", "14.12.13", 2, "Kiev", 2, 30.0f, 30.0f);
+        Parcel parcel = new Parcel(0,"123", "456", "0508276721", "Ivan", "Ivanchuk", "12.12.13", "14.12.13", 2, "Kiev", 1, 30.0f, 30.0f);
         HttpSession session = request.getSession(true);
         session.setAttribute("parcel", parcel);
         dispatcher =  request.getRequestDispatcher("/pages/findparcel.jsp");

@@ -146,7 +146,7 @@
 									<p style="padding: 12px 0 0 16px;">
 										<a href="./createacc" class="read_more1">Створити новий
 											акаунт</a>
-									</p>
+									</p>									
 								</div>
 							</div>
 						</div>
@@ -167,7 +167,7 @@
 									<c:choose>
 										<c:when test="${user.getKind() == 1}">
 											<p style="padding: 12px 0 0 16px;">
-												<a href="#" class="read_more1">Мої замовлення</a>
+												<a href="./myparcels" class="read_more1">Мої посилки</a>
 											</p>
 										</c:when>
 										<c:when test="${user.getKind() == 2}">

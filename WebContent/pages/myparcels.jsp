@@ -1,14 +1,10 @@
 ﻿<%@page import="office.entities.Parcel"%>
-
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<c:set var="STATUS_AT_START" value="<%=Parcel.STATUS_AT_START%>" />
-<c:set var="STATUS_IN_WAY" value="<%=Parcel.STATUS_IN_WAY%>" />
-<c:set var="STATUS_IN_END" value="<%=Parcel.STATUS_IN_END%>" />
-<c:set var="STATUS_DONE" value="<%=Parcel.STATUS_DONE%>" />
 <fmt:requestEncoding value="UTF-8" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -54,43 +50,156 @@
 			<div class="left_body_wrap">
 				<div class="left_body_main">
 					<div class="main_wrap">
-						<c:choose>
-							<c:when test="${empty parcel}">
-								<form name="findParcelForm" action="controller" method="post">
-									<input type="hidden" name="command" value="findparcel" />
-									<p style="padding: 0px 0 0 50px;" class="text">
-										Введіть ідентифікаційний номер посилки <input type="text"
-											id="parcelIdField" name="parcelIdField" maxlength="50"
-											style="padding: 3px 0 0 10px;" class="contact_filed1"
-											value="" />
-										<p style="padding: 10px 0 0 260px;">
-											<a href="#"
-												onclick="document.forms['findParcelForm'].submit(); return false;"
-												class="log">Знайти</a>
-										</p>
-									</p>
-								</form>
-							</c:when>
-							
-							<c:otherwise>							
-								<c:choose>
-									<c:when test="${parcel.status eq STATUS_AT_START}">
-										Ваша посилка зараз в місті відправника. Чекайте, ше чекайте.
-									</c:when >
-									<c:when test="${parcel.status eq STATUS_IN_WAY}">
-										Ваша посилка зараз в дорозі. Чекайте. Ше трошки...
-									</c:when>
-									<c:when test="${parcel.status eq STATUS_AT_END}">
-										Дана посилка зараз в місті отримувача. Приходьте, щоб забрати.
-									</c:when>
-								
-							</c:choose>
+						<p>
+							<span class="web_text"> Ваші посилки </span><br /> <br /> <br />
+							<br />
+							<%
+								ArrayList<Parcel> sentParcels = (ArrayList<Parcel>) request
+										.getAttribute("sentparcels");
+								ArrayList<Parcel> receivedParcels = (ArrayList<Parcel>) request
+										.getAttribute("receivedparcels");
+							%>
+						<p>							
+							<span><a class="nulla">Надіслані </a> <img
+								src="images/outbox.jpg" alt="" /></span><br /> <br /> <span
+								style="line-height: 18px;">
+								<% if (sentParcels.isEmpty()) { %>
+								Порожньо...
+								<% } else { %><table>
+									<tr align="center">
+										<th>Ім'я</th>
+										<th></th>
+										<th></th>
+										<th>Прізвище</th>
+										<th></th>
+										<th></th>
+										<th>Телефон</th>
+										<th></th>
+										<th></th>
+										<th>Коли відправлено</th>
+										<th></th>
+										<th></th>
+										<th>Коли отримано</th>
+										<th></th>
+										<th></th>
+										<th>Маса, кг</th>
+										<th></th>
+										<th></th>
+										<th>Вартість</th>
+										<th></th>
+										<th></th>
+										<th>Статус</th>
+										<th></th>
+										<th></th>
+									</tr>
+									<%
+										for (Parcel p : sentParcels) {
+									%>
 
-								<%
-									session.removeAttribute("parcel");
-								%>
-							</c:otherwise>
-						</c:choose>
+									<tr align="center">
+										<td><%=p.getClientToName()%></td>
+										<td></td>
+										<td></td>
+										<td><%=p.getClientToSurname()%></td>
+										<td></td>
+										<td></td>
+										<td><%=p.getClientToTel()%></td>
+										<td></td>
+										<td></td>
+										<td><%=p.getDateFrom()%></td>
+										<td></td>
+										<td></td>
+										<td><%=p.getDateTo()%></td>
+										<td></td>
+										<td></td>
+										<td><%=p.getWeight()%></td>
+										<td></td>
+										<td></td>
+										<td><%=p.getPrice()%></td>
+										<td></td>
+										<td></td>
+										<td><%=p.getStatus()%></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<%
+										}
+									%>
+								</table>
+								<%} %>
+							</span><br /> <br />
+						</p>
+						<p>
+							<span><a class="nulla">Отримані </a> <img
+								src="images/inbox.jpg" alt="" /></span><br /> <br /> <span
+								style="line-height: 18px;">
+								<% if (receivedParcels.isEmpty()) { %>
+								Порожньо...
+								<% } else { %><table>
+									<tr align="center">
+										<th>Ім'я</th>
+										<th></th>
+										<th></th>
+										<th>Прізвище</th>
+										<th></th>
+										<th></th>
+										<th>Телефон</th>
+										<th></th>
+										<th></th>
+										<th>Коли відправлено</th>
+										<th></th>
+										<th></th>
+										<th>Коли отримано</th>
+										<th></th>
+										<th></th>
+										<th>Маса, кг</th>
+										<th></th>
+										<th></th>
+										<th>Вартість</th>
+										<th></th>
+										<th></th>
+										<th>Статус</th>
+										<th></th>
+										<th></th>
+									</tr>
+									<%
+										for (Parcel p : receivedParcels) {
+									%>
+
+									<tr align="center">
+										<td><%=p.getClientToName()%></td>
+										<td></td>
+										<td></td>
+										<td><%=p.getClientToSurname()%></td>
+										<td></td>
+										<td></td>
+										<td><%=p.getClientToTel()%></td>
+										<td></td>
+										<td></td>
+										<td><%=p.getDateFrom()%></td>
+										<td></td>
+										<td></td>
+										<td><%=p.getDateTo()%></td>
+										<td></td>
+										<td></td>
+										<td><%=p.getWeight()%></td>
+										<td></td>
+										<td></td>
+										<td><%=p.getPrice()%></td>
+										<td></td>
+										<td></td>
+										<td><%=p.getStatus()%></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<%
+										}
+									%>
+								</table>
+								<%} %>
+							</span><br /> <br />
+						</p>
+
 					</div>
 				</div>
 			</div>
@@ -151,8 +260,9 @@
 								<div class="login_wrap">
 									<p class="user_name_text">Ви увійшли як ${user.firstName}</p>
 									<p style="padding: 12px 0 0 16px;">
-										<a href="#" class="read_more1">Мій профіль</a>
+										<a href="./profile" class="read_more1">Мій профіль</a>
 									</p>
+									
 									<p style="padding: 16px 0 0 16px;">
 										<a href="#"
 											onclick="document.forms['logoutForm'].submit(); return false;"
