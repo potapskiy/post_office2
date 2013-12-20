@@ -53,7 +53,8 @@
 								<ul>
 									<li><span><a class="nulla">Відправка документів та інших друкованих матеріалів</a></span></li>
 									<li><span><a class="nulla">Відправка посилок будь-якого об'єму та ваги</a></span></li>
-									<li><span><a class="nulla">Регулярні перевезення містами України</a></span></li>								
+									<li><span><a class="nulla">Регулярні перевезення містами України</a></span></li>
+									<li><span><a href="./findparcel" class="nulla"> Відслідкувати вантаж </a></span></li>
 								</ul>
 							</span><br /> <br />
 					</div>

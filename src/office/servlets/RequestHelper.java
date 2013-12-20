@@ -17,6 +17,11 @@ public class RequestHelper {
 		commands.put("login", new LoginCommand());
 		commands.put("logout", new LogoutCommand());		
 		commands.put("register", new RegisterCommand());
+		commands.put("findparcel", new FindParcelCommand());
+		commands.put("edit_profile", new EditProfileCommand());
+		commands.put("loadparcel", new LoadParcelCommand());
+		commands.put("sendparcel", new SendParcelCommand());
+		
 //		commands.put("addrecord", new AddRecordCommand());
 //		commands.put("showhistory", new ShowHistoryCommand());
 //		commands.put("monthlystatistic", new MonthlyStatisticCommand());

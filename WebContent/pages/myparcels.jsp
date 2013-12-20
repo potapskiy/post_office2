@@ -1,14 +1,11 @@
-﻿<%@page import="office.entities.User"%>
+﻿<%@page import="office.entities.Parcel"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<c:set var="ADMIN" value="<%=User.ADMIN%>" />
-<c:set var="COURIER" value="<%=User.COURIER%>" />
-<c:set var="LOADER" value="<%=User.LOADER%>" />
-<c:set var="MANAGER" value="<%=User.MANAGER%>" />
-<c:set var="USER" value="<%=User.USER%>" />
+
 <fmt:requestEncoding value="UTF-8" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -55,59 +52,155 @@
 				<div class="left_body_main">
 					<div class="main_wrap">
 						<p>
-							<span class="web_text"> Вітаємо Вас на офіційному сайті
-								нашої компанії !</span><br /> <br /> <span style="line-height: 18px;">Ми
-								- молода компанія, яка займається експрес-доставкою та
-								перевезенням пасажирів в Україні. Ми здійснюємо максимально
-								швидку доставку документів, посилок та будь-чого, що ви там собі
-								надумаєте переслати. Ви можете і не отримати свою посилку, зате
-								якщо отримаєте, то максимально швидко.</span><br /> <br />
+							<span class="web_text"> Ваші посилки </span><br /> <br /> <br />
+							<br />
+							<%
+								ArrayList<Parcel> sentParcels = (ArrayList<Parcel>) request
+										.getAttribute("sentparcels");
+								ArrayList<Parcel> receivedParcels = (ArrayList<Parcel>) request
+										.getAttribute("receivedparcels");
+							%>
+						<p>							
+							<span><a class="nulla">Надіслані </a> <img
+								src="images/outbox.jpg" alt="" /></span><br /> <br /> <span
+								style="line-height: 18px;">
+								<% if (sentParcels.isEmpty()) { %>
+								Порожньо...
+								<% } else { %><table>
+									<tr align="center">
+										<th>Ім'я</th>
+										<th></th>
+										<th></th>
+										<th>Прізвище</th>
+										<th></th>
+										<th></th>
+										<th>Телефон</th>
+										<th></th>
+										<th></th>
+										<th>Коли відправлено</th>
+										<th></th>
+										<th></th>
+										<th>Коли отримано</th>
+										<th></th>
+										<th></th>
+										<th>Маса, кг</th>
+										<th></th>
+										<th></th>
+										<th>Вартість</th>
+										<th></th>
+										<th></th>
+										<th>Статус</th>
+										<th></th>
+										<th></th>
+									</tr>
+									<%
+										for (Parcel p : sentParcels) {
+									%>
 
-							<p>
-								<span class="web_text">Чому саме ми?</span><br /> <br />
-								<div class="watch_main_wrap">
-									<div class="watch_wrap">
-										<img src="images/wallet.jpg" alt="" />
-									</div>
-									<div class="watch_wrap1">
-										<p>
-											<span><a class="nulla">Низькі ціни</a></span><br /> <br />
-											<span style="line-height: 18px;">Ми забезпечуємо
-												відносно низькі ціни на наші послуги. Оскільки доставка не
-												гарантована, ми знижуємо вартість обслуговування, щоб хоч
-												якось оправдати ваш ризик. </span><br /> <br />
-										</p>
-									</div>
-									<br class="blank" />
-								</div>
-								<div class="watch_main_wrap">
-									<div class="watch_wrap">
-										<img src="images/turtle.jpg" alt="" />
-									</div>
-									<div class="watch_wrap1">
-										<p>
-											<span><a class="nulla">Швидкість</a></span><br /> <br /> <span
-												style="line-height: 18px;">Найновіші вантажні
-												автомобілі та швидке і якісне обслуговування клієнтів
-												забезпечують швидку доставку вантажів в цілому. </span><br /> <br />
-										</p>
-									</div>
-									<br class="blank" />
-								</div>
-								<div class="watch_main_wrap">
-									<div class="watch_wrap">
-										<img src="images/ikarus.jpg" alt="" />
-									</div>
-									<div class="watch_wrap1">
-										<p>
-											<span><a class="nulla">Комфорт</a></span><br /> <br /> <span
-												style="line-height: 18px;">Наші автобуси забезпечать
-												Вам кофморт під час поїздки. Вам залишається тільки обрати
-												маршрут.</span><br /> <br />
-										</p>
-									</div>
-									<br class="blank" />
-								</div>
+									<tr align="center">
+										<td><%=p.getClientToName()%></td>
+										<td></td>
+										<td></td>
+										<td><%=p.getClientToSurname()%></td>
+										<td></td>
+										<td></td>
+										<td><%=p.getClientToTel()%></td>
+										<td></td>
+										<td></td>
+										<td><%=p.getDateFrom()%></td>
+										<td></td>
+										<td></td>
+										<td><%=p.getDateTo()%></td>
+										<td></td>
+										<td></td>
+										<td><%=p.getWeight()%></td>
+										<td></td>
+										<td></td>
+										<td><%=p.getPrice()%></td>
+										<td></td>
+										<td></td>
+										<td><%=p.getStatus()%></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<%
+										}
+									%>
+								</table>
+								<%} %>
+							</span><br /> <br />
+						</p>
+						<p>
+							<span><a class="nulla">Отримані </a> <img
+								src="images/inbox.jpg" alt="" /></span><br /> <br /> <span
+								style="line-height: 18px;">
+								<% if (receivedParcels.isEmpty()) { %>
+								Порожньо...
+								<% } else { %><table>
+									<tr align="center">
+										<th>Ім'я</th>
+										<th></th>
+										<th></th>
+										<th>Прізвище</th>
+										<th></th>
+										<th></th>
+										<th>Телефон</th>
+										<th></th>
+										<th></th>
+										<th>Коли відправлено</th>
+										<th></th>
+										<th></th>
+										<th>Коли отримано</th>
+										<th></th>
+										<th></th>
+										<th>Маса, кг</th>
+										<th></th>
+										<th></th>
+										<th>Вартість</th>
+										<th></th>
+										<th></th>
+										<th>Статус</th>
+										<th></th>
+										<th></th>
+									</tr>
+									<%
+										for (Parcel p : receivedParcels) {
+									%>
+
+									<tr align="center">
+										<td><%=p.getClientToName()%></td>
+										<td></td>
+										<td></td>
+										<td><%=p.getClientToSurname()%></td>
+										<td></td>
+										<td></td>
+										<td><%=p.getClientToTel()%></td>
+										<td></td>
+										<td></td>
+										<td><%=p.getDateFrom()%></td>
+										<td></td>
+										<td></td>
+										<td><%=p.getDateTo()%></td>
+										<td></td>
+										<td></td>
+										<td><%=p.getWeight()%></td>
+										<td></td>
+										<td></td>
+										<td><%=p.getPrice()%></td>
+										<td></td>
+										<td></td>
+										<td><%=p.getStatus()%></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<%
+										}
+									%>
+								</table>
+								<%} %>
+							</span><br /> <br />
+						</p>
+
 					</div>
 				</div>
 			</div>
@@ -128,7 +221,7 @@
 									</p>
 									<p style="padding: 8px 0 0 28px;">
 										<input type="text" name="loginField" maxlength="50"
-											class="contact_filed" value="admin"
+											class="contact_filed" value="введіть телефон"
 											onfocus="javascript:clearField(this,'введіть телефон')"
 											onblur="javacript:fillField(this,'введіть телефон')" />
 									</p>
@@ -137,7 +230,7 @@
 									</p>
 									<p style="padding: 8px 0 0 28px;">
 										<input type="password" name="pass" maxlength="50"
-											class="contact_filed" value="admin"
+											class="contact_filed" value="password"
 											onfocus="javascript:clearField(this,'password')"
 											onblur="javacript:fillField(this,'password')" />
 									</p>
@@ -170,31 +263,7 @@
 									<p style="padding: 12px 0 0 16px;">
 										<a href="./profile" class="read_more1">Мій профіль</a>
 									</p>
-									<c:choose>
-										<c:when test="${user.getKind() eq USER}">
-											<p style="padding: 12px 0 0 16px;">
-												<a href="./myparcels" class="read_more1">Мої посилки</a>
-											</p>
-										</c:when>
-										<c:when test="${user.getKind() eq MANAGER}">
-											<p style="padding: 12px 0 0 16px;">
-												<a href="#" class="read_more1">Зареєструвати посилку</a>
-											</p>
-											<p style="padding: 12px 0 0 16px;">
-												<a href="#" class="read_more1">Отримати посилку</a>
-											</p>
-										</c:when>
-										<c:when test="${user.getKind() eq LOADER}">
-											<p style="padding: 12px 0 0 16px;">
-												<a href="./sendparcel" class="read_more1">Відправити посилку</a>
-											</p>
-											<p style="padding: 12px 0 0 16px;">
-												<a href="./loadparcel" class="read_more1">Отримати посилку</a>
-											</p>
-										</c:when>
-
-									</c:choose>
-
+									
 									<p style="padding: 16px 0 0 16px;">
 										<a href="#"
 											onclick="document.forms['logoutForm'].submit(); return false;"

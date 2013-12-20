@@ -50,7 +50,7 @@ public class ControllerServlet extends HttpServlet {
 			// Command command = CommandFactory.getCommand(
 			// CommandFactory.Login);
 			Command command = requestHelper.getCommand(request);
-			command.execute(request);
+			command.execute(request, response);
 			RequestDispatcher rd = (RequestDispatcher) command.getResult();
 			rd.forward(request, response);
 		} catch (UnsupportedEncodingException ex) {

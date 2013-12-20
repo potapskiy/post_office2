@@ -1,14 +1,14 @@
-﻿<%@page import="office.entities.User"%>
+﻿<%@page import="office.entities.Parcel"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<c:set var="ADMIN" value="<%=User.ADMIN%>" />
-<c:set var="COURIER" value="<%=User.COURIER%>" />
-<c:set var="LOADER" value="<%=User.LOADER%>" />
-<c:set var="MANAGER" value="<%=User.MANAGER%>" />
-<c:set var="USER" value="<%=User.USER%>" />
+<c:set var="STATUS_AT_START" value="<%=Parcel.STATUS_AT_START%>" />
+<c:set var="STATUS_IN_WAY" value="<%=Parcel.STATUS_IN_WAY%>" />
+<c:set var="STATUS_IN_END" value="<%=Parcel.STATUS_IN_END%>" />
+<c:set var="STATUS_DONE" value="<%=Parcel.STATUS_DONE%>" />
 <fmt:requestEncoding value="UTF-8" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -54,60 +54,43 @@
 			<div class="left_body_wrap">
 				<div class="left_body_main">
 					<div class="main_wrap">
-						<p>
-							<span class="web_text"> Вітаємо Вас на офіційному сайті
-								нашої компанії !</span><br /> <br /> <span style="line-height: 18px;">Ми
-								- молода компанія, яка займається експрес-доставкою та
-								перевезенням пасажирів в Україні. Ми здійснюємо максимально
-								швидку доставку документів, посилок та будь-чого, що ви там собі
-								надумаєте переслати. Ви можете і не отримати свою посилку, зате
-								якщо отримаєте, то максимально швидко.</span><br /> <br />
+						<c:choose>
+							<c:when test="${empty parcel}">
+								<form name="findParcelForm" action="controller" method="post">
+									<input type="hidden" name="command" value="findparcel" />
+									<p style="padding: 0px 0 0 50px;" class="text">
+										Введіть ідентифікаційний номер посилки <input type="text"
+											id="parcelIdField" name="parcelIdField" maxlength="50"
+											style="padding: 3px 0 0 10px;" class="contact_filed1"
+											value="" />
+										<p style="padding: 10px 0 0 260px;">
+											<a href="#"
+												onclick="document.forms['findParcelForm'].submit(); return false;"
+												class="log">Знайти</a>
+										</p>
+									</p>
+								</form>
+							</c:when>
+							
+							<c:otherwise>							
+								<c:choose>
+									<c:when test="${parcel.status eq STATUS_AT_START}">
+										Ваша посилка зараз в місті відправника. Чекайте, ше чекайте.
+									</c:when >
+									<c:when test="${parcel.status eq STATUS_IN_WAY}">
+										Ваша посилка зараз в дорозі. Чекайте. Ше трошки...
+									</c:when>
+									<c:when test="${parcel.status eq STATUS_AT_END}">
+										Дана посилка зараз в місті отримувача. Приходьте, щоб забрати.
+									</c:when>
+								
+							</c:choose>
 
-							<p>
-								<span class="web_text">Чому саме ми?</span><br /> <br />
-								<div class="watch_main_wrap">
-									<div class="watch_wrap">
-										<img src="images/wallet.jpg" alt="" />
-									</div>
-									<div class="watch_wrap1">
-										<p>
-											<span><a class="nulla">Низькі ціни</a></span><br /> <br />
-											<span style="line-height: 18px;">Ми забезпечуємо
-												відносно низькі ціни на наші послуги. Оскільки доставка не
-												гарантована, ми знижуємо вартість обслуговування, щоб хоч
-												якось оправдати ваш ризик. </span><br /> <br />
-										</p>
-									</div>
-									<br class="blank" />
-								</div>
-								<div class="watch_main_wrap">
-									<div class="watch_wrap">
-										<img src="images/turtle.jpg" alt="" />
-									</div>
-									<div class="watch_wrap1">
-										<p>
-											<span><a class="nulla">Швидкість</a></span><br /> <br /> <span
-												style="line-height: 18px;">Найновіші вантажні
-												автомобілі та швидке і якісне обслуговування клієнтів
-												забезпечують швидку доставку вантажів в цілому. </span><br /> <br />
-										</p>
-									</div>
-									<br class="blank" />
-								</div>
-								<div class="watch_main_wrap">
-									<div class="watch_wrap">
-										<img src="images/ikarus.jpg" alt="" />
-									</div>
-									<div class="watch_wrap1">
-										<p>
-											<span><a class="nulla">Комфорт</a></span><br /> <br /> <span
-												style="line-height: 18px;">Наші автобуси забезпечать
-												Вам кофморт під час поїздки. Вам залишається тільки обрати
-												маршрут.</span><br /> <br />
-										</p>
-									</div>
-									<br class="blank" />
-								</div>
+								<%
+									session.removeAttribute("parcel");
+								%>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 			</div>
@@ -128,7 +111,7 @@
 									</p>
 									<p style="padding: 8px 0 0 28px;">
 										<input type="text" name="loginField" maxlength="50"
-											class="contact_filed" value="admin"
+											class="contact_filed" value="введіть телефон"
 											onfocus="javascript:clearField(this,'введіть телефон')"
 											onblur="javacript:fillField(this,'введіть телефон')" />
 									</p>
@@ -137,7 +120,7 @@
 									</p>
 									<p style="padding: 8px 0 0 28px;">
 										<input type="password" name="pass" maxlength="50"
-											class="contact_filed" value="admin"
+											class="contact_filed" value="password"
 											onfocus="javascript:clearField(this,'password')"
 											onblur="javacript:fillField(this,'password')" />
 									</p>
@@ -168,33 +151,8 @@
 								<div class="login_wrap">
 									<p class="user_name_text">Ви увійшли як ${user.firstName}</p>
 									<p style="padding: 12px 0 0 16px;">
-										<a href="./profile" class="read_more1">Мій профіль</a>
+										<a href="#" class="read_more1">Мій профіль</a>
 									</p>
-									<c:choose>
-										<c:when test="${user.getKind() eq USER}">
-											<p style="padding: 12px 0 0 16px;">
-												<a href="./myparcels" class="read_more1">Мої посилки</a>
-											</p>
-										</c:when>
-										<c:when test="${user.getKind() eq MANAGER}">
-											<p style="padding: 12px 0 0 16px;">
-												<a href="#" class="read_more1">Зареєструвати посилку</a>
-											</p>
-											<p style="padding: 12px 0 0 16px;">
-												<a href="#" class="read_more1">Отримати посилку</a>
-											</p>
-										</c:when>
-										<c:when test="${user.getKind() eq LOADER}">
-											<p style="padding: 12px 0 0 16px;">
-												<a href="./sendparcel" class="read_more1">Відправити посилку</a>
-											</p>
-											<p style="padding: 12px 0 0 16px;">
-												<a href="./loadparcel" class="read_more1">Отримати посилку</a>
-											</p>
-										</c:when>
-
-									</c:choose>
-
 									<p style="padding: 16px 0 0 16px;">
 										<a href="#"
 											onclick="document.forms['logoutForm'].submit(); return false;"

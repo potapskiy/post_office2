@@ -274,8 +274,22 @@ body {
 	color:#FF0000;
 	padding:12px 0 0 28px;
 }
+.user_name_success_text {
+	font:normal 11px Tahoma, Arial, Helvetica, sans-serif;
+	color:#00FF00;
+	padding:12px 0 0 28px;
+}
 .contact_filed {
 	border:none;
+	font:normal 11px Tahoma, Arial, Helvetica, sans-serif;
+	padding:3px 0 0 0;
+	background:none;
+	Width:158px;
+	height:18px;
+	color:#aeb2b6;
+}
+.contact_filed1 {
+	
 	font:normal 11px Tahoma, Arial, Helvetica, sans-serif;
 	padding:3px 0 0 0;
 	background:none;
@@ -409,8 +423,23 @@ a.footer:hover, a.footeractive {
 	font:bold 11px/18px Tahoma, Arial, Helvetica, sans-serif;
 	color:#f7931d;
 }
-.center_body_bg {
+.center_body_register_bg {
 	width:469px;	
 	background:url(../images/register_bg.jpg) 0 0 no-repeat;
 	height:466px;
+	
+}
+
+.center_body_profile_bg {
+	width:469px;	
+	background:url(../images/profile_bg.jpg) 0 0 no-repeat;
+	height:466px;
+	
+}
+
+
+.field_wrap {
+	width:187px;	
+	background:url(../images/field.jpg) 0 0 no-repeat;
+	height:26px;
 }

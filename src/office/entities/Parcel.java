@@ -5,6 +5,11 @@ import java.util.Calendar;
 
 public class Parcel {
 
+	public static final int PARCEL_LOADED = 0;
+	public static final int PARCEL_SENT = 1;
+	public static final int PARCEL_NOT_LOADED = 2;
+	public static final int PARCEL_NOT_SENT = 3;
+	
 	public static final int TYPE_DEPARTMENT = 0;
 	public static final int TYPE_HOME = 1;
 
