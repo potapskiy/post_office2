@@ -1,9 +1,11 @@
 package office.comands;
 
 import java.io.IOException;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *Redirect to main page, when catch some exception
@@ -20,7 +22,7 @@ public class NoCommand implements Command{
     /**
      * Get all finance list from table 
      */
-    public void execute(HttpServletRequest request) 
+    public void execute(HttpServletRequest request, HttpServletResponse response) 
             throws IOException, ServletException {
         request.setCharacterEncoding("UTF-8");
         

@@ -5,7 +5,7 @@ import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -22,7 +22,7 @@ public class PageCommand implements Command {
 	/**
 	 * Make redirect to another page
 	 */
-	public void execute(HttpServletRequest request) throws IOException,
+	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException,
 			ServletException {
 		request.setCharacterEncoding("UTF-8");
 		       

@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import office.crypto.SHAHashing;
@@ -28,7 +29,7 @@ public class FindParcelCommand implements Command{
     /**
      * Makes user authorization
      */
-    public void execute(HttpServletRequest request) 
+    public void execute(HttpServletRequest request, HttpServletResponse response) 
             throws IOException, ServletException {
         request.setCharacterEncoding("UTF-8");
         

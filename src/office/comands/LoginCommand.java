@@ -6,7 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import office.crypto.SHAHashing;
@@ -28,7 +28,7 @@ public class LoginCommand implements Command{
     /**
      * Makes user authorization
      */
-    public void execute(HttpServletRequest request) 
+    public void execute(HttpServletRequest request, HttpServletResponse response) 
             throws IOException, ServletException {
         request.setCharacterEncoding("UTF-8");
         
@@ -44,7 +44,7 @@ public class LoginCommand implements Command{
 		
 		if (login.equals("admin") && pass.equals("admin")){
 			//User user = usersDAO.getUserByTelephone(login);
-			User user = new User(login, pass, "Sergiy", "Skyrda", "Kiev", User.USER);
+			User user = new User(login, pass, "Sergiy", "Skyrda", "Kiev", User.LOADER);
 			
 			request.removeAttribute("Error");
 			HttpSession session = request.getSession(true);
