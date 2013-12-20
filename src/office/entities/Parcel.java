@@ -1,5 +1,8 @@
 package office.entities;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class Parcel {
 
 	public static final int TYPE_DEPARTMENT = 0;
@@ -11,9 +14,9 @@ public class Parcel {
 	public static final int STATUS_DONE = 4;
 
 	private String id;
-	private int userId;
-	private String departmentIdFrom;
-	private String departmentIdTo;
+	private String userId;
+	private int departmentIdFrom;
+	private int departmentIdTo;
 	private String clientToTel;
 	private String clientToName;
 	private String clientToSurname;
@@ -25,10 +28,11 @@ public class Parcel {
 	private float price;
 	private float weight;
 
-	public Parcel(int userId, String departmentIdFrom,
-			String departmentIdTo, String clientToTel, String clientToName,
+	public Parcel(String userId, int departmentIdFrom,
+			int departmentIdTo, String clientToTel, String clientToName,
 			String clientToSurname, String dateFrom, String dateTo, int type,
 			String homeAddress, int status, float price, float weight) {
+		
 		this.userId = userId;
 		this.departmentIdFrom = departmentIdFrom;
 		this.departmentIdTo = departmentIdTo;
@@ -42,10 +46,42 @@ public class Parcel {
 		this.status = status;
 		this.price = price;
 		this.weight = weight;
+		
+		
+		
+		
+		
 	}
 	
 	
 	public Parcel() {
+	}
+	
+	public Parcel(String tel_from, int id_fr, int id_to, String tel_to,
+			int type2, String addr, double price2, float weight2) {
+		
+		this.id = generateID(id_fr);
+		this.userId = tel_from;
+		this.departmentIdFrom = id_fr;
+		this.departmentIdTo = id_to;
+		this.clientToTel = tel_to;
+		this.type = type2;
+		this.homeAddress = addr;
+		this.status = STATUS_AT_START;
+		this.price = (float) price2;
+		this.weight = weight2;
+		
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
+		this.dateFrom = sdf.format(cal.getTime());
+	}
+
+
+	private String generateID(int id_fr){
+		
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		return sdf.format(cal.getTime())+String.valueOf(id_fr);
 	}
 	
 	public String getId() {
@@ -56,27 +92,27 @@ public class Parcel {
 		this.id = id;
 	}
 
-	public int getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
-	public String getDepartmentIdFrom() {
+	public int getDepartmentIdFrom() {
 		return departmentIdFrom;
 	}
 
-	public void setDepartmentIdFrom(String departmentIdFrom) {
+	public void setDepartmentIdFrom(int departmentIdFrom) {
 		this.departmentIdFrom = departmentIdFrom;
 	}
 
-	public String getDepartmentIdTo() {
+	public int getDepartmentIdTo() {
 		return departmentIdTo;
 	}
 
-	public void setDepartmentIdTo(String departmentIdTo) {
+	public void setDepartmentIdTo(int departmentIdTo) {
 		this.departmentIdTo = departmentIdTo;
 	}
 

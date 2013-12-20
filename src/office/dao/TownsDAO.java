@@ -125,10 +125,12 @@ public class TownsDAO {
 	public int getCode(String name) {
 		ResultSet rs;
 		int code = 0;
-
+		
+		name = name.toLowerCase();
+		
 		try {
 			String query = "SELECT townId FROM " + DBParams.TABLE4
-					+ " WHERE name = ?";
+					+ " WHERE LOWER(name) = ?";
 			PreparedStatement pst = conn.prepareStatement(query);
 			pst.setString(1, name);
 			rs = pst.executeQuery();

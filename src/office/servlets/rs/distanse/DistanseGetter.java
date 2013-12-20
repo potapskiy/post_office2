@@ -19,7 +19,7 @@ public class DistanseGetter {
 							+ "&mode=drivinr&language=ua-UA&sensor=false";
 			
 			
-			System.out.println(url);
+			//System.out.println(url);
 			
 			Client client = Client.create();
 			WebResource webResource = client.resource(url);

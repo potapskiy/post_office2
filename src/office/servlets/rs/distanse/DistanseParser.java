@@ -27,6 +27,7 @@ public class DistanseParser {
 			
 			JSONObject distance = (JSONObject) obj3.get("distance");
 			
+			
 			String meters = distance.get("value").toString();
 			
 			distansef = Float.parseFloat(meters) / 1000;
@@ -36,6 +37,7 @@ public class DistanseParser {
 		}catch (Exception e) {
 			e.printStackTrace();
 			// TODO: handle exception
+			return -1;
 		}
 		
 		return distansef;

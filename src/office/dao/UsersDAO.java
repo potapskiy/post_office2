@@ -36,7 +36,7 @@ public class UsersDAO {
 		return false;
 	}
 
-	public void updateUser(User user) throws SQLException {
+	public void updateUser(User user)  {
 
 		try {
 			PreparedStatement stat = conn
@@ -58,7 +58,7 @@ public class UsersDAO {
 
 	}
 
-	public void insertUser(User user) throws SQLException {
+	public void insertUser(User user) {
 
 		if (isUserRegistered(user.getTelephone())) {
 			updateUser(user);

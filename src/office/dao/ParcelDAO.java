@@ -47,9 +47,9 @@ public class ParcelDAO {
 							+ "clientToName = ?,  clientToSurname = ?,  dateFrom = ?,  dateTo = ?,  type = ?,  homeAddress = ?,  status = ?,  "
 							+ "price = ?,  weight = ?" + "WHERE parcelId = ?");
 
-			stat.setInt(1, parcel.getUserId());
-			stat.setString(2, parcel.getDepartmentIdFrom());
-			stat.setString(3, parcel.getDepartmentIdTo());
+			stat.setString(1, parcel.getUserId());
+			stat.setInt(2, parcel.getDepartmentIdFrom());
+			stat.setInt(3, parcel.getDepartmentIdTo());
 			stat.setString(4, parcel.getClientToTel());
 			stat.setString(5, parcel.getClientToName());
 			stat.setString(6, parcel.getClientToSurname());
@@ -85,9 +85,9 @@ public class ParcelDAO {
 							+ "clientToName,  clientToSurname,  dateFrom,  dateTo,  type,  homeAddress,  status,  "
 							+ "price,  weight) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			stat.setString(1, parcel.getId());
-			stat.setInt(2, parcel.getUserId());
-			stat.setString(3, parcel.getDepartmentIdFrom());
-			stat.setString(4, parcel.getDepartmentIdTo());
+			stat.setString(2, parcel.getUserId());
+			stat.setInt(3, parcel.getDepartmentIdFrom());
+			stat.setInt(4, parcel.getDepartmentIdTo());
 			stat.setString(5, parcel.getClientToTel());
 			stat.setString(6, parcel.getClientToName());
 			stat.setString(7, parcel.getClientToSurname());
@@ -121,11 +121,11 @@ public class ParcelDAO {
 	}
 	
 	
-	public void removeParcelByUserId(int id) {
+	public void removeParcelByUserId(String id) {
 		String sql = "DELETE FROM " + DBParams.TABLE2 + " WHERE userlId = ?";
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, id);
+			ps.setString(1, id);
 			ps.execute();
 
 		} catch (SQLException e) {
@@ -147,10 +147,10 @@ public class ParcelDAO {
 			resultSet = ps.executeQuery();
 			while (resultSet.next()) {
 				parcel.setId(resultSet.getString("parcelId"));
-				parcel.setUserId(resultSet.getInt("userId"));
+				parcel.setUserId(resultSet.getString("userId"));
 				parcel.setDepartmentIdFrom(resultSet
-						.getString("departmentIdFrom"));
-				parcel.setDepartmentIdTo(resultSet.getString("departmentIdTo"));
+						.getInt("departmentIdFrom"));
+				parcel.setDepartmentIdTo(resultSet.getInt("departmentIdTo"));
 				parcel.setClientToTel(resultSet.getString("clientToTel"));
 				parcel.setClientToName(resultSet.getString("clientToName"));
 				parcel.setClientToSurname(resultSet
@@ -188,7 +188,7 @@ public class ParcelDAO {
 
 	}
 
-	public ArrayList<Parcel> getUserParcelsSend(int userId) {
+	public ArrayList<Parcel> getUserParcelsSend(String userId) {
 		PreparedStatement ps = null;
 		ResultSet resultSet = null;
 		
@@ -197,15 +197,15 @@ public class ParcelDAO {
 		String query = "SELECT * FROM " + DBParams.TABLE2 + " WHERE userId = ? ";
 		try {
 			ps = conn.prepareStatement(query);
-			ps.setInt(1, userId);
+			ps.setString(1, userId);
 			resultSet = ps.executeQuery();
 			while (resultSet.next()) {
 				Parcel parcel = new Parcel();
 				parcel.setId(resultSet.getString("parcelId"));
-				parcel.setUserId(resultSet.getInt("userId"));
+				parcel.setUserId(resultSet.getString("userId"));
 				parcel.setDepartmentIdFrom(resultSet
-						.getString("departmentIdFrom"));
-				parcel.setDepartmentIdTo(resultSet.getString("departmentIdTo"));
+						.getInt("departmentIdFrom"));
+				parcel.setDepartmentIdTo(resultSet.getInt("departmentIdTo"));
 				parcel.setClientToTel(resultSet.getString("clientToTel"));
 				parcel.setClientToName(resultSet.getString("clientToName"));
 				parcel.setClientToSurname(resultSet
@@ -241,10 +241,10 @@ public class ParcelDAO {
 			while (resultSet.next()) {
 				Parcel parcel = new Parcel();
 				parcel.setId(resultSet.getString("parcelId"));
-				parcel.setUserId(resultSet.getInt("userId"));
+				parcel.setUserId(resultSet.getString("userId"));
 				parcel.setDepartmentIdFrom(resultSet
-						.getString("departmentIdFrom"));
-				parcel.setDepartmentIdTo(resultSet.getString("departmentIdTo"));
+						.getInt("departmentIdFrom"));
+				parcel.setDepartmentIdTo(resultSet.getInt("departmentIdTo"));
 				parcel.setClientToTel(resultSet.getString("clientToTel"));
 				parcel.setClientToName(resultSet.getString("clientToName"));
 				parcel.setClientToSurname(resultSet

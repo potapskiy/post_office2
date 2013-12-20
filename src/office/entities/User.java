@@ -7,7 +7,7 @@ public class User {
 	public static final int MANAGER = 2;
 	public static final int LOADER = 3;
 	public static final int COURIER = 4;
-	public static final int DIRCTOR = 5;
+	public static final int DIRECTOR = 5;
 
 	private int id;
 	private String telephone;
