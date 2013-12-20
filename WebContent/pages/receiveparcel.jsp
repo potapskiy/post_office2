@@ -1,5 +1,4 @@
 ﻿<%@page import="office.entities.User"%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -16,7 +15,11 @@
 <head>
 <title>Нова пошта++</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="css/jquery-ui.css" rel="stylesheet" type="text/css" />
 <link href="css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery-1.10.2.js" />
+<script type="text/javascript" src="js/jquery-ui.js" />
+<script type="text/javascript" src="js/autoComplete.js" />
 <script src="js/login.js" type="text/javascript"></script>
 </head>
 <body>
@@ -27,17 +30,18 @@
 		<div class="main_area">
 			<div class="logo_wrap">
 				<p class="logo_pad">
-					<a href="./index"><img src="images/logo_all.jpg" alt="" border="0" /></a>
+					<a href="./index"><img src="images/logo_all.jpg" alt=""
+						border="0" /></a>
 				</p>
 			</div>
 			<div class="navarea_wrap">
 				<div class="nav_wrap">
 
 					<ul>
-						<li><a href="./index" class="home"> Головна</a></li>
+						<li><a href="./index" class="homeactive"> Головна</a></li>
 						<li><a href="./about" class="home"> Про нас</a></li>
 						<li><a href="./services" class="home">Послуги</a></li>
-						<li><a href="./contacts" class="contactactive">Контакти</a></li>
+						<li><a href="./contacts" class="contact">Контакти</a></li>
 					</ul>
 
 
@@ -54,31 +58,92 @@
 			<div class="left_body_wrap">
 				<div class="left_body_main">
 					<div class="main_wrap">
-						<p>
-							<span class="web_text"> Контакти наших відділень</span><br /> <br />
-							<ul>
-								<li><span><a class="nulla"> Київ </a> </span><br />
-								 
-								<span style="line-height: 18px;"> вул.
-										Сєченова 6 <br /> (050)8276721
-								</span></li>
-								<li><span><a class="nulla"> Черкаси </a> </span><br />
-								 
-								<span style="line-height: 18px;"> вул.
-										Енгельса 10 <br /> (095)2345679
-								</span></li>
-								<li><span><a class="nulla"> Шепетівка </a> </span><br />
-								 
-								<span style="line-height: 18px;"> вул.
-										Шевченка 2 <br /> (063)1009845
-								</span></li>
-								<li><span><a class="nulla"> Головний офіс </a> </span><br />
-								 
-								<span style="line-height: 18px;"> м. Київ <br/>вул.
-										Банкова 14 <br /> (044)234569
-								</span></li>
+						<c:choose>
+							<c:when test="${empty parcel}">
+								<form name="findParcelForm" action="controller" method="post">
+									<input type="hidden" name="command" value="findreceivedparcel" />
+									<p style="padding: 0px 0 0 50px;" class="text">
+										Введіть ідентифікаційний номер посилки <input type="text"
+											id="parcelIdField" name="parcelIdField" maxlength="50"
+											style="padding: 3px 0 0 10px;" class="contact_filed1"
+											value="" />
+										<p style="padding: 10px 0 0 260px;">
+											<a href="#"
+												onclick="document.forms['findParcelForm'].submit(); return false;"
+												class="log">Знайти</a>
+										</p>
+									</p>
+								</form>
+							</c:when>
 
-							</ul>
+							<c:otherwise>
+								<table>
+									<tr align="center">
+										<th>Ім'я</th>
+										<th></th>
+										<th></th>
+										<th>Прізвище</th>
+										<th></th>
+										<th></th>
+										<th>Телефон</th>
+										<th></th>
+										<th></th>
+										<th>Коли відправлено</th>
+										<th></th>
+										<th></th>
+										<th>Маса, кг</th>
+										<th></th>
+										<th></th>
+										<th>Вартість</th>
+										<th></th>
+										<th></th>
+									</tr>
+
+									<tr align="center">
+										<td>${parcel.getClientToName()}</td>
+										<td></td>
+										<td></td>
+										<td>${parcel.getClientToSurname()}</td>
+										<td></td>
+										<td></td>
+										<td>${parcel.getClientToTel()}</td>
+										<td></td>
+										<td></td>
+										<td>${parcel.getDateFrom()}</td>
+										<td></td>
+										<td></td>
+										<td>${parcel.getWeight()}</td>
+										<td></td>
+										<td></td>
+										<td>${parcel.getPrice()}</td>
+										<td></td>
+										<td></td>
+									</tr>
+								</table>
+								<form name="receiveParcelForm" action="controller" method="post">
+									<input type="hidden" name="command" value="receiveparcel" />
+									<c:if test="${not empty receiveParcelSuccess}">
+										<p id="receiveParcelSuccess" style="padding: 20px 0 0 225px;"
+											class="user_name_success_text">Посилка отримана</p>
+										<%
+											session.removeAttribute("parcel");
+											session.removeAttribute("receiveParcelSuccess");
+										%>
+									</c:if>
+									<c:if test="${empty receiveParcelSuccess}">
+										<p style="padding: 10px 0 0 260px;">
+											<a href="#"
+												onclick="document.forms['receiveParcelForm'].submit(); return false;"
+												class="log">Отримати</a>
+										</p>
+									</c:if>
+
+
+								</form>
+
+							</c:otherwise>
+						</c:choose>
+
 					</div>
 				</div>
 			</div>
@@ -189,9 +254,9 @@
 		<div class="footer_area">
 			<div class="footer_nav_area">
 				<p class="footer_nav_text">
-					<a href="./index" class="footer">Головна</a> | <a href="./about"
-						class="footer">Про нас</a> | <a href="./services" class="footer">Послуги</a>
-					| <a href="./contacts" class="footeractive">Контакти</a>
+					<a href="./index" class="footeractive">Головна</a> | <a
+						href="./about" class="footer">Про нас</a> | <a href="./services"
+						class="footer">Послуги</a> | <a href="./contacts" class="footer">Контакти</a>
 				</p>
 			</div>
 			<div class="copy_wrap">

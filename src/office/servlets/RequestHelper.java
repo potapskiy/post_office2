@@ -21,6 +21,9 @@ public class RequestHelper {
 		commands.put("edit_profile", new EditProfileCommand());
 		commands.put("loadparcel", new LoadParcelCommand());
 		commands.put("sendparcel", new SendParcelCommand());
+		commands.put("receiveparcel", new ReceiveParcelCommand());
+		commands.put("findreceivedparcel", new FindReceivedParcelCommand());
+		commands.put("couriersubmit", new CourierSubmitCommand());
 		
 //		commands.put("addrecord", new AddRecordCommand());
 //		commands.put("showhistory", new ShowHistoryCommand());

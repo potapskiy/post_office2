@@ -1,5 +1,4 @@
 ﻿<%@page import="office.entities.User"%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -16,7 +15,11 @@
 <head>
 <title>Нова пошта++</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="css/jquery-ui.css" rel="stylesheet" type="text/css" />
 <link href="css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery-1.10.2.js" />
+<script type="text/javascript" src="js/jquery-ui.js" />
+<script type="text/javascript" src="js/autoComplete.js" />
 <script src="js/login.js" type="text/javascript"></script>
 </head>
 <body>
@@ -27,17 +30,18 @@
 		<div class="main_area">
 			<div class="logo_wrap">
 				<p class="logo_pad">
-					<a href="./index"><img src="images/logo_all.jpg" alt="" border="0" /></a>
+					<a href="./index"><img src="images/logo_all.jpg" alt=""
+						border="0" /></a>
 				</p>
 			</div>
 			<div class="navarea_wrap">
 				<div class="nav_wrap">
 
 					<ul>
-						<li><a href="./index" class="home"> Головна</a></li>
+						<li><a href="./index" class="homeactive"> Головна</a></li>
 						<li><a href="./about" class="home"> Про нас</a></li>
 						<li><a href="./services" class="home">Послуги</a></li>
-						<li><a href="./contacts" class="contactactive">Контакти</a></li>
+						<li><a href="./contacts" class="contact">Контакти</a></li>
 					</ul>
 
 
@@ -54,31 +58,110 @@
 			<div class="left_body_wrap">
 				<div class="left_body_main">
 					<div class="main_wrap">
-						<p>
-							<span class="web_text"> Контакти наших відділень</span><br /> <br />
-							<ul>
-								<li><span><a class="nulla"> Київ </a> </span><br />
-								 
-								<span style="line-height: 18px;"> вул.
-										Сєченова 6 <br /> (050)8276721
-								</span></li>
-								<li><span><a class="nulla"> Черкаси </a> </span><br />
-								 
-								<span style="line-height: 18px;"> вул.
-										Енгельса 10 <br /> (095)2345679
-								</span></li>
-								<li><span><a class="nulla"> Шепетівка </a> </span><br />
-								 
-								<span style="line-height: 18px;"> вул.
-										Шевченка 2 <br /> (063)1009845
-								</span></li>
-								<li><span><a class="nulla"> Головний офіс </a> </span><br />
-								 
-								<span style="line-height: 18px;"> м. Київ <br/>вул.
-										Банкова 14 <br /> (044)234569
-								</span></li>
+						<form>
+							<fieldset>
+								<legend>Відправник</legend>
+								<table>
+									<tr>
+										<th align="left"><label for="town">Місто </label></th>
+										<td align="left"><input id="town" /></td>
+									</tr>
+									<tr>
+										<th align="left"><label for="department">Відділення
+										</label></th>
+										<td align="left"><select id="department"
+											name="department">
+												<option selected disabled>Оберіть відділення</option>
+										</select></td>
+									</tr>
 
-							</ul>
+									<tr>
+										<th align="left"><label for="telephonet">Телефон
+										</label></th>
+										<td align="left"><input id="telephonet" /></td>
+									</tr>
+									<tr>
+										<th align="left"><label for="name_t">Ім'я </label></th>
+										<td align="left"><input id="name_t" /></td>
+									</tr>
+									<tr>
+										<th align="left"><label for="surn_t">Прізвище </label></th>
+										<td align="left"><input id="surn_t" /></td>
+									</tr>
+								</table>
+							</fieldset>
+
+							<fieldset>
+								<legend>Отримувач</legend>
+								<table>
+									<tr>
+										<th align="left"><label for="townt">Місто </label></th>
+										<td align="left"><input id="townt" /></td>
+									</tr>
+									<tr>
+										<th align="left"><label for="departmentt">Відділення
+										</label></th>
+										<td align="left"><select id="departmentt"
+											name="departmentt">
+												<option selected disabled>Оберіть відділення</option>
+										</select></td>
+									</tr>
+									<tr>
+										<th align="left"><label for="telephonett">Телефон
+										</label></th>
+										<td align="left"><input id="telephonett" /></td>
+									</tr>
+									<tr>
+										<th align="left"><label for="name_tt">Ім'я </label></th>
+										<td align="left"><input id="name_tt" /></td>
+									</tr>
+									<tr>
+										<th align="left"><label for="surn_tt">Прізвище </label></th>
+										<td align="left"><input id="surn_tt" /></td>
+									</tr>
+								</table>
+							</fieldset>
+
+							<fieldset>
+								<legend>Посилка</legend>
+								<table>
+									<tr>
+										<th align="left"><label for="type_p">Тип </label></th>
+										<td align="left"><select id="type_p" name="type_p">
+												<option selected>Склад - Скдад</option>
+												<option>Склад - Двері</option>
+										</select></td>
+									</tr>
+									<tr>
+										<th align="left"><label for="address_tt">Домашня
+												адреса </label></th>
+										<td align="left"><input id="address_tt" /></td>
+									</tr>
+									<tr>
+										<th align="left"><label for="weight_p">Вага </label></th>
+										<td align="left"><input id="weight_p" type="number"
+											step="any" /></td>
+										<th align="left"><label for="price_p">Ціна </label></th>
+										<td align="left"><input id="price_p" type="text" disabled /></td>
+									</tr>
+								</table>
+
+							</fieldset>
+
+							<fieldset>
+								<legend>Управління</legend>
+
+								<button type="button" id="getPrice" name="getPrice">Розрахувати
+									ціну</button>
+
+								<button type="button" id="sendParcel" name="sendParcel">Оформити</button>
+
+							</fieldset>
+							<p class="user_name_error_text" id="error_text"
+								style="display: none">Перевірте правильність введених даних
+							</p>
+
+						</form>
 					</div>
 				</div>
 			</div>
@@ -189,9 +272,9 @@
 		<div class="footer_area">
 			<div class="footer_nav_area">
 				<p class="footer_nav_text">
-					<a href="./index" class="footer">Головна</a> | <a href="./about"
-						class="footer">Про нас</a> | <a href="./services" class="footer">Послуги</a>
-					| <a href="./contacts" class="footeractive">Контакти</a>
+					<a href="./index" class="footeractive">Головна</a> | <a
+						href="./about" class="footer">Про нас</a> | <a href="./services"
+						class="footer">Послуги</a> | <a href="./contacts" class="footer">Контакти</a>
 				</p>
 			</div>
 			<div class="copy_wrap">

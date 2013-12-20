@@ -1,8 +1,14 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@page import="office.entities.User"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<c:set var="ADMIN" value="<%=User.ADMIN%>" />
+<c:set var="COURIER" value="<%=User.COURIER%>" />
+<c:set var="LOADER" value="<%=User.LOADER%>" />
+<c:set var="MANAGER" value="<%=User.MANAGER%>" />
+<c:set var="USER" value="<%=User.USER%>" />
 <fmt:requestEncoding value="UTF-8" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -77,7 +83,7 @@
 									</p>
 									<p style="padding: 8px 0 0 28px;">
 										<input type="text" name="loginField" maxlength="50"
-											class="contact_filed" value="введіть телефон"
+											class="contact_filed" value="admin"
 											onfocus="javascript:clearField(this,'введіть телефон')"
 											onblur="javacript:fillField(this,'введіть телефон')" />
 									</p>
@@ -86,7 +92,7 @@
 									</p>
 									<p style="padding: 8px 0 0 28px;">
 										<input type="password" name="pass" maxlength="50"
-											class="contact_filed" value="password"
+											class="contact_filed" value="admin"
 											onfocus="javascript:clearField(this,'password')"
 											onblur="javacript:fillField(this,'password')" />
 									</p>
@@ -99,7 +105,8 @@
 										<c:if test="${not empty Error}">Невірний телефон або пароль</c:if>
 									</p>
 									<p style="padding: 12px 0 0 16px;">
-										<a href="./create_acc" class="read_more1">Створити новий акаунт</a>
+										<a href="./createacc" class="read_more1">Створити новий
+											акаунт</a>
 									</p>
 								</div>
 							</div>
@@ -116,8 +123,38 @@
 								<div class="login_wrap">
 									<p class="user_name_text">Ви увійшли як ${user.firstName}</p>
 									<p style="padding: 12px 0 0 16px;">
-										<a href="#" class="read_more1">Мій профіль</a>
+										<a href="./profile" class="read_more1">Мій профіль</a>
 									</p>
+									<c:choose>
+										<c:when test="${user.getKind() eq USER}">
+											<p style="padding: 12px 0 0 16px;">
+												<a href="./myparcels" class="read_more1">Мої посилки</a>
+											</p>
+										</c:when>
+										<c:when test="${user.getKind() eq MANAGER}">
+											<p style="padding: 12px 0 0 16px;">
+												<a href="./registerparcel" class="read_more1">Зареєструвати посилку</a>
+											</p>
+											<p style="padding: 12px 0 0 16px;">
+												<a href="./receiveparcel" class="read_more1">Отримати посилку</a>
+											</p>
+										</c:when>
+										<c:when test="${user.getKind() eq LOADER}">
+											<p style="padding: 12px 0 0 16px;">
+												<a href="./sendparcel" class="read_more1">Відправити посилку</a>
+											</p>
+											<p style="padding: 12px 0 0 16px;">
+												<a href="./loadparcel" class="read_more1">Отримати посилку</a>
+											</p>
+										</c:when>
+										<c:when test="${user.getKind() eq COURIER}">
+											<p style="padding: 12px 0 0 16px;">
+												<a href="./viewparcels" class="read_more1">Переглянути посилки</a>
+											</p>											
+										</c:when>
+
+									</c:choose>
+
 									<p style="padding: 16px 0 0 16px;">
 										<a href="#"
 											onclick="document.forms['logoutForm'].submit(); return false;"

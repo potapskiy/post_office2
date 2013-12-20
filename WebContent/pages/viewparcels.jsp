@@ -1,15 +1,17 @@
-﻿<%@page import="office.entities.User"%>
-
+﻿<%@page import="office.entities.Parcel"%>
+<%@page import="office.entities.User"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="ADMIN" value="<%=User.ADMIN%>" />
 <c:set var="COURIER" value="<%=User.COURIER%>" />
 <c:set var="LOADER" value="<%=User.LOADER%>" />
 <c:set var="MANAGER" value="<%=User.MANAGER%>" />
 <c:set var="USER" value="<%=User.USER%>" />
+
 <fmt:requestEncoding value="UTF-8" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -18,6 +20,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="css/style.css" rel="stylesheet" type="text/css" />
 <script src="js/login.js" type="text/javascript"></script>
+<script src="js/parcel.js" type="text/javascript"></script>
 </head>
 <body>
 	<div class="header_area">
@@ -27,17 +30,18 @@
 		<div class="main_area">
 			<div class="logo_wrap">
 				<p class="logo_pad">
-					<a href="./index"><img src="images/logo_all.jpg" alt="" border="0" /></a>
+					<a href="./index"><img src="images/logo_all.jpg" alt=""
+						border="0" /></a>
 				</p>
 			</div>
 			<div class="navarea_wrap">
 				<div class="nav_wrap">
 
 					<ul>
-						<li><a href="./index" class="home"> Головна</a></li>
+						<li><a href="./index" class="homeactive"> Головна</a></li>
 						<li><a href="./about" class="home"> Про нас</a></li>
 						<li><a href="./services" class="home">Послуги</a></li>
-						<li><a href="./contacts" class="contactactive">Контакти</a></li>
+						<li><a href="./contacts" class="contact">Контакти</a></li>
 					</ul>
 
 
@@ -55,30 +59,93 @@
 				<div class="left_body_main">
 					<div class="main_wrap">
 						<p>
-							<span class="web_text"> Контакти наших відділень</span><br /> <br />
-							<ul>
-								<li><span><a class="nulla"> Київ </a> </span><br />
-								 
-								<span style="line-height: 18px;"> вул.
-										Сєченова 6 <br /> (050)8276721
-								</span></li>
-								<li><span><a class="nulla"> Черкаси </a> </span><br />
-								 
-								<span style="line-height: 18px;"> вул.
-										Енгельса 10 <br /> (095)2345679
-								</span></li>
-								<li><span><a class="nulla"> Шепетівка </a> </span><br />
-								 
-								<span style="line-height: 18px;"> вул.
-										Шевченка 2 <br /> (063)1009845
-								</span></li>
-								<li><span><a class="nulla"> Головний офіс </a> </span><br />
-								 
-								<span style="line-height: 18px;"> м. Київ <br/>вул.
-										Банкова 14 <br /> (044)234569
-								</span></li>
+							<span class="web_text"> Посилки, які необхідно доставити </span><br /> <br /> <br />
+							<br />
+							<%
+								ArrayList<Parcel> parcels = (ArrayList<Parcel>) session.getAttribute("parcels");								
+							%>
+						<p>							
+							<span
+								style="line-height: 18px;">
+								<% if (parcels == null || parcels.isEmpty()) { %>
+								Порожньо...
+								<% } else { %>
+								<form name="courierSubmitForm" action="controller" method="post">						
+									<input type="hidden" name="command" value="couriersubmit"/>
+								<table>
+									<tr align="center">
+										<th>Ім'я</th>
+										<th></th>
+										<th></th>
+										<th>Прізвище</th>
+										<th></th>
+										<th></th>
+										<th>Телефон</th>
+										<th></th>
+										<th></th>
+										<th>Адреса</th>
+										<th></th>
+										<th></th>
+										<th>Коли відправлено</th>
+										<th></th>
+										<th></th>										
+										<th>Маса, кг</th>
+										<th></th>
+										<th></th>										
+										<th>Доставлено</th>
+										<th></th>
+										<th></th>										
+									</tr>
+									<%
+										for (Parcel p : parcels) {
+									%>
 
-							</ul>
+									<tr align="center">
+										<td><%=p.getClientToName()%></td>
+										<td></td>
+										<td></td>
+										<td><%=p.getClientToSurname()%></td>
+										<td></td>
+										<td></td>
+										<td><%=p.getClientToTel()%></td>
+										<td></td>
+										<td></td>
+										<td><%=p.getHomeAddress()%></td>
+										<td></td>
+										<td></td>
+										<td><%=p.getDateFrom()%></td>
+										<td></td>
+										<td></td>										
+										<td><%=p.getWeight()%></td>
+										<td></td>
+										<td></td>																		
+										<td><input type="checkbox" id="check<%=p.getId()%>" name="check<%=p.getId()%>" /></td>										
+										<td></td>
+										<td></td>
+									</tr>
+									<%
+										}
+									
+									%>
+								</table>
+								<% if (session.getAttribute("success") == null) { %>								
+									
+								
+								<%} else { %>
+								<p id="loadParcelSuccess" style="padding: 10px 0 0 225px;"
+									class="user_name_success_text">Посилки отримано</p>
+								
+								<%session.removeAttribute("success");} %>
+								<p style="padding: 16px 0 0 200px;">
+									<a href="#"
+										onclick="document.forms['courierSubmitForm'].submit(); return false;"
+										class="log_long">Підтвердити</a>
+								</p>
+								</form>
+								<% } %>
+							</span><br /> <br />
+						</p>						
+
 					</div>
 				</div>
 			</div>
@@ -189,9 +256,9 @@
 		<div class="footer_area">
 			<div class="footer_nav_area">
 				<p class="footer_nav_text">
-					<a href="./index" class="footer">Головна</a> | <a href="./about"
-						class="footer">Про нас</a> | <a href="./services" class="footer">Послуги</a>
-					| <a href="./contacts" class="footeractive">Контакти</a>
+					<a href="./index" class="footeractive">Головна</a> | <a
+						href="./about" class="footer">Про нас</a> | <a href="./services"
+						class="footer">Послуги</a> | <a href="./contacts" class="footer">Контакти</a>
 				</p>
 			</div>
 			<div class="copy_wrap">

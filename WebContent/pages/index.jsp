@@ -178,10 +178,10 @@
 										</c:when>
 										<c:when test="${user.getKind() eq MANAGER}">
 											<p style="padding: 12px 0 0 16px;">
-												<a href="#" class="read_more1">Зареєструвати посилку</a>
+												<a href="./registerparcel" class="read_more1">Зареєструвати посилку</a>
 											</p>
 											<p style="padding: 12px 0 0 16px;">
-												<a href="#" class="read_more1">Отримати посилку</a>
+												<a href="./receiveparcel" class="read_more1">Отримати посилку</a>
 											</p>
 										</c:when>
 										<c:when test="${user.getKind() eq LOADER}">
@@ -191,6 +191,11 @@
 											<p style="padding: 12px 0 0 16px;">
 												<a href="./loadparcel" class="read_more1">Отримати посилку</a>
 											</p>
+										</c:when>
+										<c:when test="${user.getKind() eq COURIER}">
+											<p style="padding: 12px 0 0 16px;">
+												<a href="./viewparcels" class="read_more1">Переглянути посилки</a>
+											</p>											
 										</c:when>
 
 									</c:choose>
