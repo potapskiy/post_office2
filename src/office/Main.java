@@ -14,8 +14,10 @@ public class Main {
 
 		//PropertiesOperations.setProperties();
 
+		String login = "1177700367";
+		System.out.println(login.matches("(\\d){9}"));
 		
-		System.out.println(SHAHashing.getHash("123"));
+		//System.out.println(SHAHashing.getHash("123"));
 	}
 
 	

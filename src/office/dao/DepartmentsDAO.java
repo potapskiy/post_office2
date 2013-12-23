@@ -254,6 +254,25 @@ public class DepartmentsDAO {
 		
 	}
 	
+	public boolean isTowmInTable(int town_id) {
+
+		PreparedStatement pst;
+		try {
+			pst = conn.prepareStatement("SELECT * FROM " + DBParams.TABLE3
+					+ " WHERE id_town = ?");
+			pst.setInt(1, town_id);
+			ResultSet rs = pst.executeQuery();
+
+			if (rs.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		return false;
+
+	}
 	
 	public List<String> getDepartmInfo(String townName){
 		List<String> tl = new ArrayList<String>();

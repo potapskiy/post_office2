@@ -37,19 +37,35 @@ public class EditProfileCommand implements Command{
         String firstName = request.getParameter("firstNameField");
         String lastName = request.getParameter("lastNameField");
         String address = request.getParameter("addressField");
+        UsersDAO uDao = new UsersDAO();
+        
         if (pass == null) {
-        	// pass не змінився
+        	// pass пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         }
-        if (login == "123") { // логін змінився, але такий вже є в базі        	
+        
+        HttpSession session = request.getSession(true);
+    	User user = (User)session.getAttribute("user");
+        
+        boolean isLogin = uDao.isUserRegistered(login);
+        if (isLogin && (!login.equals(user.getTelephone()))) { // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅ пїЅ пїЅпїЅпїЅ        	
         	request.setAttribute("Error","error.autofailed");
             dispatcher =  request.getRequestDispatcher("/pages/edit_profile.jsp");
         } else {
-        	HttpSession session = request.getSession(true);
-        	User user = (User)session.getAttribute("user");
+        	
         	user.setTelephone(login);
         	user.setFirstName(firstName);
         	user.setSecondName(lastName);
         	user.setAddress(address);
+        	
+        	if ((pass == null) || (pass == "")){
+        		uDao.insertUserWP(user);
+        	}else{
+        		
+        		String passHash = SHAHashing.getHash(pass);
+        		user.setPassword(passHash);
+        		uDao.insertUser(user);
+        	}
+        	
         	session.setAttribute("user", user);
         	request.setAttribute("Success","Success");
             dispatcher =  request.getRequestDispatcher("/pages/profile.jsp");

@@ -48,6 +48,7 @@ public class SaveParcel extends HttpServlet {
 			String type = request.getParameter("type");
 			String tel_from = request.getParameter("tel_fr");
 			String tel_to = request.getParameter("tel_to");
+			
 			String name_from = request.getParameter("name_fr");
 			String name_to = request.getParameter("name_to");
 			String sname_from = request.getParameter("sname_fr");
@@ -75,6 +76,15 @@ public class SaveParcel extends HttpServlet {
 			
 			JSONObject json = new JSONObject();
 			
+			if ((!tel_from.matches("(\\d){9}")) || (!tel_to.matches("(\\d){9}"))){
+				json.put( "status", "ERROR");
+			    String requestBody = json.toJSONString();
+			    System.out.println(requestBody);
+				response.getWriter().write(new Gson().toJson(requestBody));
+				return;
+	        }
+			
+			
 			double price = new PriseCalcServ().getPrice(town_from, town_to, type, weight);
 			if((price > 0) && (weight > 0)){
 				saveUser(tel_from, name_from, sname_from);
@@ -92,7 +102,7 @@ public class SaveParcel extends HttpServlet {
 				int id_fr = ddao.getIdByTownAndNum(town_frID, depNumbFrom);
 				int id_to = ddao.getIdByTownAndNum(town_toID, depNumbTo);
 				
-				int itype = type.equals("Склад - Двері") ? Parcel.TYPE_DEPARTMENT : Parcel.TYPE_HOME;
+				int itype = type.equals("Склад - Двері") ? Parcel.TYPE_HOME : Parcel.TYPE_DEPARTMENT;
 				Parcel p = new Parcel(tel_from, id_fr, id_to, tel_to, itype, addr, price, weight);
 				
 				pdao.insertParsel(p);

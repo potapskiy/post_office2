@@ -37,18 +37,26 @@ public class RegisterCommand implements Command{
         String firstName = request.getParameter("firstNameField");
         String lastName = request.getParameter("lastNameField");
         String address = request.getParameter("addressField");
+        
+        address = (address.equals("введіть адресу")) ? "" : address;
+        
+        int kind = (request.getParameter("kind") == null) ? User.USER :
+        	Integer.parseInt(request.getParameter("kind"));
+        
+      
                		
-		//String passHash = SHAHashing.getHash(pass);		
-		//UsersDAO usersDAO = new UsersDAO();		
-		//boolean userExists = usersDAO.isUserTelAndPassCorrect(login, passHash);		
+		String passHash = SHAHashing.getHash(pass);		
+		UsersDAO usersDAO = new UsersDAO();		
+		boolean userExists = usersDAO.isUserRegistered(login);
 				
-		if (!login.equals("000011112")){
+		if (!userExists){
 			//User user = usersDAO.getUserByTelephone(login);
-			User user = new User(login, pass, firstName, lastName, address);
+			User newUser = new User(login, passHash, firstName, lastName, address,kind);
+			usersDAO.insertUser(newUser);
 			request.removeAttribute("Error");
 			HttpSession session = request.getSession(true);
 			session.removeAttribute("Error");
-            session.setAttribute("user", user);
+            session.setAttribute("user", newUser);
             dispatcher =  request.getRequestDispatcher("/pages/index.jsp");
 		}else {
             request.setAttribute("Error","error.autofailed");

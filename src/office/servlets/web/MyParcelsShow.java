@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import office.dao.ParcelDAO;
 import office.entities.Parcel;
 import office.entities.User;
 
@@ -47,36 +48,50 @@ public class MyParcelsShow extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		System.out.println("GET");
-
-		// read parcels of user in session
-		ArrayList<Parcel> sentParcels = new ArrayList<Parcel>();
-		ArrayList<Parcel> receivedParcels = new ArrayList<Parcel>();
-		sentParcels
-				.add(new Parcel("0", 123, 456, "0508276721", "Ivan",
-						"Ivanchuk", "12.12.13", "14.12.13", 2, "Kiev", 1,
-						30.0f, 30.0f));
-		sentParcels.add(new Parcel("0", 123, 436, "0935678321", "Olga",
-				"Olzhych", "19.12.13", "23.12.13", 2, "Kiev", 1, 40.0f, 30.0f));
+		
 		HttpSession session = request.getSession(true);
-		
-		
 		if (session.getAttribute("user") != null) {
 			User user = (User) session.getAttribute("user");
-			receivedParcels.add(new Parcel("1", 123, 456,
-					user.getTelephone(), user.getFirstName(), user
-							.getSecondName(), "12.11.13", "14.12.13", 2, user
-							.getAddress(), 1, 30.0f, 30.0f));
-			receivedParcels.add(new Parcel("1", 123, 436,
-					user.getTelephone(), user.getFirstName(), user
-							.getSecondName(), "19.12.13", "23.12.13", 2, user
-							.getAddress(), 1, 40.0f, 30.0f));			
-		}			
-		request.setAttribute("sentparcels", sentParcels);
-		request.setAttribute("receivedparcels", receivedParcels);
+			
+			ParcelDAO pdao = new ParcelDAO();
+			ArrayList<Parcel> sentParcels = pdao.getUserParcelsSend(user.getTelephone());
+			ArrayList<Parcel> receivedParcels = pdao.getUserParcelsGet(user.getTelephone());
+		
+			request.setAttribute("sentparcels", sentParcels);
+			request.setAttribute("receivedparcels", receivedParcels);
+			
+			
+			dispatcher = request.getRequestDispatcher("pages/myparcels.jsp");
+			dispatcher.forward(request, response);
+		}
 		
 		
-		dispatcher = request.getRequestDispatcher("pages/myparcels.jsp");
-		dispatcher.forward(request, response);
+		
+		
+		// read parcels of user in session
+//		ArrayList<Parcel> sentParcels = new ArrayList<Parcel>();
+//		ArrayList<Parcel> receivedParcels = new ArrayList<Parcel>();
+//		sentParcels
+//				.add(new Parcel("0", 123, 456, "0508276721", "Ivan",
+//						"Ivanchuk", "12.12.13", "14.12.13", 2, "Kiev", 1,
+//						30.0f, 30.0f));
+//		sentParcels.add(new Parcel("0", 123, 436, "0935678321", "Olga",
+//				"Olzhych", "19.12.13", "23.12.13", 2, "Kiev", 1, 40.0f, 30.0f));
+//		
+//		
+//		
+//		if (session.getAttribute("user") != null) {
+//			User user = (User) session.getAttribute("user");
+//			receivedParcels.add(new Parcel("1", 123, 456,
+//					user.getTelephone(), user.getFirstName(), user
+//							.getSecondName(), "12.11.13", "14.12.13", 2, user
+//							.getAddress(), 1, 30.0f, 30.0f));
+//			receivedParcels.add(new Parcel("1", 123, 436,
+//					user.getTelephone(), user.getFirstName(), user
+//							.getSecondName(), "19.12.13", "23.12.13", 2, user
+//							.getAddress(), 1, 40.0f, 30.0f));			
+//		}			
+		
 	}
 
 	/**

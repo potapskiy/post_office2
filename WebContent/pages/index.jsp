@@ -124,11 +124,11 @@
 									<p class="user_text">ВХІД</p>
 
 									<p class="user_name_text">
-										телефон<span style="color: #f60219;"> *</span>
+										телефон +380<span style="color: #f60219;"> *</span>
 									</p>
 									<p style="padding: 8px 0 0 28px;">
 										<input type="text" name="loginField" maxlength="50"
-											class="contact_filed" value="admin"
+											class="contact_filed" value="введіть телефон"
 											onfocus="javascript:clearField(this,'введіть телефон')"
 											onblur="javacript:fillField(this,'введіть телефон')" />
 									</p>

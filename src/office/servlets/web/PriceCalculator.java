@@ -17,6 +17,7 @@ import org.json.simple.JSONObject;
 
 import office.dao.ConfigDAO;
 import office.dao.DepartmentsDAO;
+import office.dao.TownsDAO;
 import office.servlets.rs.distanse.DistanseGetter;
 
 import com.google.gson.Gson;
@@ -35,6 +36,19 @@ public class PriceCalculator extends HttpServlet {
 			String weightS = request.getParameter("weight");
 			float weight = Float.parseFloat(weightS);
 			String type = request.getParameter("type");
+			
+			TownsDAO tDao = new TownsDAO();
+			int fid= tDao.getCode(from);
+			int tid= tDao.getCode(to);
+			DepartmentsDAO d = new DepartmentsDAO();
+			
+			if (!d.isTowmInTable(fid) || !d.isTowmInTable(tid)){
+				JSONObject json = new JSONObject();
+				json.put( "price", "ERROR");
+			    String requestBody = json.toJSONString();
+			    System.out.println(requestBody);
+				response.getWriter().write(new Gson().toJson(requestBody));
+			}
 
 			System.out.println("============ " + from + "  " + to + " "
 					+ weightS + " " + type);

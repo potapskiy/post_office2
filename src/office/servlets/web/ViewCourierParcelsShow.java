@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import office.dao.ParcelDAO;
 import office.entities.Parcel;
 import office.entities.User;
 
@@ -48,16 +49,18 @@ public class ViewCourierParcelsShow extends HttpServlet {
 
 		System.out.println("GET");
 		
-		ArrayList<Parcel> parcels = new ArrayList<Parcel>();
+		//ArrayList<Parcel> parcels = new ArrayList<Parcel>();
 		
-		parcels
-				.add(new Parcel("0", 123, 456, "0508276721", "Ivan",
-						"Ivanchuk", "12.12.13", "14.12.13", 2, "Kiev", 1,
-						30.0f, 30.0f));
-		parcels.get(0).setId("0");
-		parcels.add(new Parcel("0", 123, 436, "0935678321", "Olga",
-				"Olzhych", "19.12.13", "23.12.13", 2, "Kiev", 1, 40.0f, 30.0f));
-		parcels.get(1).setId("1");
+		ArrayList<Parcel> parcels = new ParcelDAO().getParcelsToHome();
+		
+//		parcels
+//				.add(new Parcel("0", 123, 456, "0508276721", "Ivan",
+//						"Ivanchuk", "12.12.13", "14.12.13", 2, "Kiev", 1,
+//						30.0f, 30.0f));
+//		parcels.get(0).setId("0");
+//		parcels.add(new Parcel("0", 123, 436, "0935678321", "Olga",
+//				"Olzhych", "19.12.13", "23.12.13", 2, "Kiev", 1, 40.0f, 30.0f));
+//		parcels.get(1).setId("1");
 		HttpSession session = request.getSession(true);	
 		session.removeAttribute("parcels");
 		session.setAttribute("parcels", parcels);

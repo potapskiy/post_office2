@@ -17,9 +17,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="css/jquery-ui.css" rel="stylesheet" type="text/css" />
 <link href="css/style.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="js/jquery-1.10.2.js" />
-<script type="text/javascript" src="js/jquery-ui.js" />
-<script type="text/javascript" src="js/autoComplete.js" />
+<script type="text/javascript" src="js/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<script type="text/javascript" src="js/autoComplete.js"></script>
 <script src="js/login.js" type="text/javascript"></script>
 </head>
 <body>
@@ -76,7 +76,7 @@
 									</tr>
 
 									<tr>
-										<th align="left"><label for="telephonet">Телефон
+										<th align="left"><label for="telephonet">Телефон +380
 										</label></th>
 										<td align="left"><input id="telephonet" /></td>
 									</tr>
@@ -107,7 +107,7 @@
 										</select></td>
 									</tr>
 									<tr>
-										<th align="left"><label for="telephonett">Телефон
+										<th align="left"><label for="telephonett">Телефон +380
 										</label></th>
 										<td align="left"><input id="telephonett" /></td>
 									</tr>
@@ -178,11 +178,11 @@
 									<p class="user_text">ВХІД</p>
 
 									<p class="user_name_text">
-										телефон<span style="color: #f60219;"> *</span>
+										телефон +380<span style="color: #f60219;"> *</span>
 									</p>
 									<p style="padding: 8px 0 0 28px;">
 										<input type="text" name="loginField" maxlength="50"
-											class="contact_filed" value="admin"
+											class="contact_filed" value="введіть телефон"
 											onfocus="javascript:clearField(this,'введіть телефон')"
 											onblur="javacript:fillField(this,'введіть телефон')" />
 									</p>

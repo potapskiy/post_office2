@@ -83,6 +83,56 @@ public class UsersDAO {
 		}
 
 	}
+	
+	
+	
+	
+	
+	public void updateUserWP(User user)  {
+
+		try {
+			PreparedStatement stat = conn
+					.prepareStatement("UPDATE "
+							+ DBParams.TABLE1
+							+ " SET telephone = ?, firstName = ?, secondName = ?, address = ?, kind =? WHERE userId = ?");
+			stat.setString(1, user.getTelephone());
+			stat.setString(2, user.getFirstName());
+			stat.setString(3, user.getSecondName());
+			stat.setString(4, user.getAddress());
+			stat.setInt(5, user.getKind());
+			stat.setInt(6, user.getId());
+			stat.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+
+		}
+
+	}
+
+	public void insertUserWP(User user) {
+
+		if (isUserRegistered(user.getTelephone())) {
+			updateUserWP(user);
+			return;
+		}
+
+		try {
+			PreparedStatement stat = conn
+					.prepareStatement("INSERT INTO "
+							+ DBParams.TABLE1
+							+ " (telephone, firstName, secondName, address, kind) VALUES (?,?,?,?,?,?)");
+			stat.setString(1, user.getTelephone());
+			stat.setString(2, user.getFirstName());
+			stat.setString(3, user.getSecondName());
+			stat.setString(4, user.getAddress());
+			stat.setInt(5, user.getKind());
+			stat.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+
+		}
+
+	}
 
 	public void removeUserById(int id) {
 		String sql = "DELETE FROM " + DBParams.TABLE1 + " WHERE userId = ?";

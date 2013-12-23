@@ -79,6 +79,9 @@
 							
 							<c:otherwise>							
 								<c:choose>
+									<c:when test="${parcel.status eq -1}">
+										Посилки, з таким номером не знайдено
+									</c:when >
 									<c:when test="${parcel.status eq STATUS_AT_START}">
 										Ваша посилка зараз в місті відправника. Чекайте, ше чекайте.
 									</c:when >
@@ -87,6 +90,9 @@
 									</c:when>
 									<c:when test="${parcel.status eq STATUS_AT_END}">
 										Дана посилка зараз в місті отримувача. Приходьте, щоб забрати.
+									</c:when>
+									<c:when test="${parcel.status eq STATUS_DONE}">
+										Посилку успішно отримали. Надсилайте ще!
 									</c:when>
 								
 							</c:choose>
@@ -112,11 +118,11 @@
 									<p class="user_text">ВХІД</p>
 
 									<p class="user_name_text">
-										телефон<span style="color: #f60219;"> *</span>
+										телефон +380<span style="color: #f60219;"> *</span>
 									</p>
 									<p style="padding: 8px 0 0 28px;">
 										<input type="text" name="loginField" maxlength="50"
-											class="contact_filed" value="admin"
+											class="contact_filed" value="введіть телефон"
 											onfocus="javascript:clearField(this,'введіть телефон')"
 											onblur="javacript:fillField(this,'введіть телефон')" />
 									</p>

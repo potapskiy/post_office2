@@ -50,10 +50,13 @@ $(document).ready(function() {
 					term : this.value
 				}
 			}).done(function(data) {
+				if (!isTelephoneCorrect){
+					$("#error_text").show();
+				}
 				var obj = jQuery.parseJSON(data);
 				$("#name_t").val(obj.name);
 				$("#surn_t").val(obj.sname);
-
+				
 			});
 
 		});
@@ -187,7 +190,6 @@ $(document).ready(function() {
 					$("#price_p").val("");
 					return false;
 				} else {
-					$("#price_p").val(s);
 					$("#error_text").hide();
 					return true;
 				}
@@ -197,3 +199,8 @@ $(document).ready(function() {
 	});
 
 });
+
+isTelephoneCorrect = function (tel) {
+	var regExp = /^\d{9}$/.test(tel);
+	return regExp;
+}

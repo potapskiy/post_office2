@@ -33,19 +33,27 @@ public class LoginCommand implements Command{
         request.setCharacterEncoding("UTF-8");
         
         String login = request.getParameter("loginField");
+        
+        if (!login.matches("(\\d){9}")){
+        	request.setAttribute("Error","error.autofailed");
+            dispatcher =  request.getRequestDispatcher("/pages/index.jsp");
+            return;
+        }
+        
         String pass = request.getParameter("pass");
         
-        System.out.println(login + "  "+ pass);
+        //System.out.println(login + "  "+ pass);
         		
-		//String passHash = SHAHashing.getHash(pass);		
-		//UsersDAO usersDAO = new UsersDAO();		
-		//boolean userExists = usersDAO.isUserTelAndPassCorrect(login, passHash);		
-		//System.out.println(userExists);
+        String passHash = SHAHashing.getHash(pass);
 		
-		if (login.equals("admin") && pass.equals("admin")){
-			//User user = usersDAO.getUserByTelephone(login);
-			User user = new User(login, pass, "Sergiy", "Skyrda", "Kiev", User.LOADER);
-			
+		UsersDAO usersDAO = new UsersDAO();
+		
+		boolean userExists = usersDAO.isUserTelAndPassCorrect(login, passHash);
+		
+		System.out.println(userExists);
+		
+		if (userExists){
+			User user = usersDAO.getUserByTelephone(login);
 			request.removeAttribute("Error");
 			HttpSession session = request.getSession(true);
             session.setAttribute("user", user);

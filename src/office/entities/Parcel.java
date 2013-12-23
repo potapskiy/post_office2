@@ -32,6 +32,7 @@ public class Parcel {
 	private int status;
 	private float price;
 	private float weight;
+	private String statusStr;
 
 	public Parcel(String userId, int departmentIdFrom,
 			int departmentIdTo, String clientToTel, String clientToName,
@@ -62,6 +63,15 @@ public class Parcel {
 	public Parcel() {
 	}
 	
+	public String getStatusStr() {
+		return statusStr;
+	}
+	
+	public void setStatusStr(String statusStr) {
+		this.statusStr = statusStr;
+	}
+	
+	
 	public Parcel(String tel_from, int id_fr, int id_to, String tel_to,
 			int type2, String addr, double price2, float weight2) {
 		
@@ -77,7 +87,7 @@ public class Parcel {
 		this.weight = weight2;
 		
 		Calendar cal = Calendar.getInstance();
-		SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 		this.dateFrom = sdf.format(cal.getTime());
 	}
 

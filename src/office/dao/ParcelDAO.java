@@ -35,7 +35,32 @@ public class ParcelDAO {
 		}
 		return false;
 	}
+	
+	
+	
+	public void setParcelStatus(int status, String id){
+		try {
+			PreparedStatement stat = conn
+					.prepareStatement("UPDATE "
+							+ DBParams.TABLE2
+							+ " SET "
+							+ "status = ? WHERE parcelId = ?");
 
+			stat.setInt(1, status);
+			stat.setString(2, id);
+
+			stat.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+
+		}
+		
+		
+		
+		
+	}
+	
+	
 	public void updateParcel(Parcel parcel) throws SQLException {
 
 		try {
@@ -119,8 +144,7 @@ public class ParcelDAO {
 		}
 
 	}
-	
-	
+
 	public void removeParcelByUserId(String id) {
 		String sql = "DELETE FROM " + DBParams.TABLE2 + " WHERE userlId = ?";
 		try {
@@ -148,8 +172,7 @@ public class ParcelDAO {
 			while (resultSet.next()) {
 				parcel.setId(resultSet.getString("parcelId"));
 				parcel.setUserId(resultSet.getString("userId"));
-				parcel.setDepartmentIdFrom(resultSet
-						.getInt("departmentIdFrom"));
+				parcel.setDepartmentIdFrom(resultSet.getInt("departmentIdFrom"));
 				parcel.setDepartmentIdTo(resultSet.getInt("departmentIdTo"));
 				parcel.setClientToTel(resultSet.getString("clientToTel"));
 				parcel.setClientToName(resultSet.getString("clientToName"));
@@ -162,11 +185,13 @@ public class ParcelDAO {
 				parcel.setStatus(resultSet.getInt("status"));
 				parcel.setPrice(resultSet.getFloat("price"));
 				parcel.setWeight(resultSet.getFloat("weight"));
-
+				
+				return parcel;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		parcel.setStatus(-1);
 		return parcel;
 	}
 
@@ -191,10 +216,14 @@ public class ParcelDAO {
 	public ArrayList<Parcel> getUserParcelsSend(String userId) {
 		PreparedStatement ps = null;
 		ResultSet resultSet = null;
-		
+
 		ArrayList<Parcel> parcelList = new ArrayList<Parcel>();
 
-		String query = "SELECT * FROM " + DBParams.TABLE2 + " WHERE userId = ? ";
+		String query = "SELECT * FROM " + DBParams.TABLE2
+				+ " WHERE userId = ? ";
+
+		UsersDAO uDao = new UsersDAO();
+
 		try {
 			ps = conn.prepareStatement(query);
 			ps.setString(1, userId);
@@ -203,21 +232,32 @@ public class ParcelDAO {
 				Parcel parcel = new Parcel();
 				parcel.setId(resultSet.getString("parcelId"));
 				parcel.setUserId(resultSet.getString("userId"));
-				parcel.setDepartmentIdFrom(resultSet
-						.getInt("departmentIdFrom"));
+				parcel.setDepartmentIdFrom(resultSet.getInt("departmentIdFrom"));
 				parcel.setDepartmentIdTo(resultSet.getInt("departmentIdTo"));
-				parcel.setClientToTel(resultSet.getString("clientToTel"));
-				parcel.setClientToName(resultSet.getString("clientToName"));
-				parcel.setClientToSurname(resultSet
-						.getString("clientToSurname"));
-				parcel.setDateFrom(resultSet.getString("dateFrom"));
-				parcel.setDateTo(resultSet.getString("dateTo"));
+
+				String tel = resultSet.getString("clientToTel");
+				User us = uDao.getUserByTelephone(tel);
+
+				parcel.setClientToTel("0" + tel);
+
+				parcel.setClientToName(us.getFirstName());
+				parcel.setClientToSurname(us.getSecondName());
+
+				String df = (resultSet.getString("dateFrom") != null) ? resultSet
+						.getString("dateFrom") : "";
+				String dt = (resultSet.getString("dateTo") != null) ? resultSet
+								.getString("dateTo") : "";
+				parcel.setDateFrom(df);
+				parcel.setDateTo(dt);
 				parcel.setType(resultSet.getInt("type"));
 				parcel.setHomeAddress(resultSet.getString("homeAddress"));
+				int st = resultSet.getInt("status");
+				parcel.setStatus(resultSet.getInt("status"));
+				parcel.setStatusStr(getStatus(st));
 				parcel.setStatus(resultSet.getInt("status"));
 				parcel.setPrice(resultSet.getFloat("price"));
 				parcel.setWeight(resultSet.getFloat("weight"));
-				
+
 				parcelList.add(parcel);
 			}
 		} catch (SQLException e) {
@@ -227,13 +267,72 @@ public class ParcelDAO {
 	}
 	
 	
+	
+	public ArrayList<Parcel> getParcelsToHome() {
+		PreparedStatement ps = null;
+		ResultSet resultSet = null;
+
+		ArrayList<Parcel> parcelList = new ArrayList<Parcel>();
+
+		String query = "SELECT * FROM " + DBParams.TABLE2
+				+ " WHERE type = ? AND status = ?";
+
+		
+		try {
+			ps = conn.prepareStatement(query);
+			UsersDAO uDao = new UsersDAO();
+			
+			ps.setInt(1, Parcel.TYPE_HOME);
+			ps.setInt(2, Parcel.STATUS_IN_END);
+			
+			resultSet = ps.executeQuery();
+			while (resultSet.next()) {
+				Parcel parcel = new Parcel();
+				parcel.setId(resultSet.getString("parcelId"));
+				parcel.setUserId(resultSet.getString("userId"));
+				parcel.setDepartmentIdFrom(resultSet.getInt("departmentIdFrom"));
+				parcel.setDepartmentIdTo(resultSet.getInt("departmentIdTo"));
+
+				String tel = resultSet.getString("clientToTel");
+				User us = uDao.getUserByTelephone(tel);
+
+				parcel.setClientToTel("0" + tel);
+
+				parcel.setClientToName(us.getFirstName());
+				parcel.setClientToSurname(us.getSecondName());
+
+				String df = (resultSet.getString("dateFrom") != null) ? resultSet
+						.getString("dateFrom") : "";
+				String dt = (resultSet.getString("dateTo") != null) ? resultSet
+								.getString("dateTo") : "";
+				parcel.setDateFrom(df);
+				parcel.setDateTo(dt);
+				parcel.setType(resultSet.getInt("type"));
+				parcel.setHomeAddress(resultSet.getString("homeAddress"));
+				int st = resultSet.getInt("status");
+				parcel.setStatus(resultSet.getInt("status"));
+				parcel.setStatusStr(getStatus(st));
+				parcel.setStatus(resultSet.getInt("status"));
+				parcel.setPrice(resultSet.getFloat("price"));
+				parcel.setWeight(resultSet.getFloat("weight"));
+
+				parcelList.add(parcel);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return parcelList;
+	}
+
 	public ArrayList<Parcel> getUserParcelsGet(String tel) {
 		PreparedStatement ps = null;
 		ResultSet resultSet = null;
-		
-		ArrayList<Parcel> parcelList = new ArrayList<Parcel>();
 
-		String query = "SELECT * FROM " + DBParams.TABLE2 + " WHERE clientToTel = ? ";
+		ArrayList<Parcel> parcelList = new ArrayList<Parcel>();
+		UsersDAO uDao = new UsersDAO();
+
+		String query = "SELECT * FROM " + DBParams.TABLE2
+				+ " WHERE clientToTel = ? ";
 		try {
 			ps = conn.prepareStatement(query);
 			ps.setString(1, tel);
@@ -241,22 +340,40 @@ public class ParcelDAO {
 			while (resultSet.next()) {
 				Parcel parcel = new Parcel();
 				parcel.setId(resultSet.getString("parcelId"));
+				// /////////
+
+				String telp = resultSet.getString("userId");
+				User us = uDao.getUserByTelephone(telp);
+
+				parcel.setClientToTel("0" + telp);
+
+				parcel.setClientToName(us.getFirstName());
+				parcel.setClientToSurname(us.getSecondName());
+				// ////////////
+
 				parcel.setUserId(resultSet.getString("userId"));
-				parcel.setDepartmentIdFrom(resultSet
-						.getInt("departmentIdFrom"));
+				parcel.setDepartmentIdFrom(resultSet.getInt("departmentIdFrom"));
 				parcel.setDepartmentIdTo(resultSet.getInt("departmentIdTo"));
-				parcel.setClientToTel(resultSet.getString("clientToTel"));
-				parcel.setClientToName(resultSet.getString("clientToName"));
-				parcel.setClientToSurname(resultSet
-						.getString("clientToSurname"));
-				parcel.setDateFrom(resultSet.getString("dateFrom"));
-				parcel.setDateTo(resultSet.getString("dateTo"));
+				// parcel.setClientToTel(resultSet.getString("clientToTel"));
+				// parcel.setClientToName(resultSet.getString("clientToName"));
+				// parcel.setClientToSurname(resultSet
+				// .getString("clientToSurname"));
+				
+				String df = (resultSet.getString("dateFrom") != null) ? resultSet
+						.getString("dateFrom") : "";
+				String dt = (resultSet.getString("dateTo") != null) ? resultSet
+								.getString("dateTo") : "";
+				parcel.setDateFrom(df);
+				parcel.setDateTo(dt);
+				
 				parcel.setType(resultSet.getInt("type"));
 				parcel.setHomeAddress(resultSet.getString("homeAddress"));
+				int st = resultSet.getInt("status");
 				parcel.setStatus(resultSet.getInt("status"));
+				parcel.setStatusStr(getStatus(st));
 				parcel.setPrice(resultSet.getFloat("price"));
 				parcel.setWeight(resultSet.getFloat("weight"));
-				
+
 				parcelList.add(parcel);
 			}
 		} catch (SQLException e) {
@@ -264,5 +381,34 @@ public class ParcelDAO {
 		}
 		return parcelList;
 	}
+	
+	
+	private String getStatus(int code){
 
+		
+		String c = "";
+		
+		switch (code) {
+		case Parcel.STATUS_AT_START:
+			c = "В пункті відправлення";
+			break;
+		case Parcel.STATUS_IN_WAY:
+			c = "В дорозыі";
+			break;
+		case Parcel.STATUS_IN_END:
+			c = "В пункті призначення";
+			break;
+		case Parcel.STATUS_DONE:
+			c = "Посилку отримано";
+			break;
+
+		default:
+			c = "Інформація відсутня";
+			break;
+		}
+		
+		return c;
+		
+		
+	}
 }

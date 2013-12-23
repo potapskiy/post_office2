@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import office.dao.ParcelDAO;
 import office.entities.Parcel;
 
 /**
@@ -33,15 +34,20 @@ public class SendParcelCommand implements Command {
 		String parcelId = request.getParameter("parcelIdField");
 		HttpSession session = request.getSession(true);
 		session.removeAttribute("resultLoadParcel");
-		if (parcelId.equals("123")) {
+		ParcelDAO pDao = new ParcelDAO();
+		
+		boolean f = pDao.isParselInTable(parcelId);
+		
+		
+		if (f && (pDao.getParcel(parcelId).getStatus() == Parcel.STATUS_IN_WAY)) {
+			new ParcelDAO().setParcelStatus(Parcel.STATUS_IN_WAY, parcelId);
 			session.setAttribute("resultLoadParcel", Parcel.PARCEL_LOADED);
-			//response.sendRedirect("./loadparcel");
 			dispatcher = request.getRequestDispatcher("/pages/sendparcel.jsp");
 		} else {
 			session.setAttribute("resultLoadParcel", Parcel.PARCEL_NOT_LOADED);
 			dispatcher = request.getRequestDispatcher("/pages/sendparcel.jsp");
-			//response.sendRedirect("./loadparcel");
 		}
+		
 		
 
 	}

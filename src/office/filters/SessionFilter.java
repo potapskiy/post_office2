@@ -37,15 +37,19 @@ public class SessionFilter implements Filter {
        
 	   // zero position is symbol '/' in url
 	   // get url from first position 
-	   
+	   System.out.println(url);
+	   System.out.println(url.substring(1));
+	   System.out.println(urlList.contains(url.substring(1)));
         if(urlList.contains(url.substring(1))) {
         	if (session.getAttribute("user") == null) {
+        		System.out.println("notAllowed");
         		allowedRequest = false; 
         	} 
         }
  
         if (!allowedRequest) {
-         response.sendRedirect("index.jsp");
+        	request.getRequestDispatcher("/index").forward(request, response);
+        	return;
         }
  
         chain.doFilter(req, res);   
@@ -59,7 +63,11 @@ public class SessionFilter implements Filter {
  
         while (token.hasMoreTokens()) {
             urlList.add(token.nextToken());
- 
+        }
+        
+        System.out.println("===init=====");
+        for(String s : urlList){
+        	System.out.println(s);
         }
     }
 }

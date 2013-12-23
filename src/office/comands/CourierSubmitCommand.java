@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import office.dao.ParcelDAO;
 import office.entities.Parcel;
 
 /**
@@ -33,6 +34,7 @@ public class CourierSubmitCommand implements Command {
 		
 		HttpSession session = request.getSession(true);
 		if (session.getAttribute("parcels") != null) {
+			ParcelDAO pDao = new ParcelDAO();
 			ArrayList<Parcel> parcels = (ArrayList<Parcel>)session.getAttribute("parcels");
 			ArrayList<Parcel> newParcels = new ArrayList<Parcel>();
 			for (Parcel p : parcels) {
@@ -41,7 +43,7 @@ public class CourierSubmitCommand implements Command {
 				if (parcelId == null) {
 					newParcels.add(p);
 				} else {
-					// змінюю статус в базі
+					pDao.setParcelStatus(Parcel.STATUS_DONE, p.getId());
 					
 				}
 			}

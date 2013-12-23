@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import office.dao.ParcelDAO;
 import office.entities.Parcel;
+import sun.security.krb5.internal.PAEncTSEnc;
 
 /**
  * PageCommand is Command, which return some static page
@@ -33,14 +35,19 @@ public class LoadParcelCommand implements Command {
 		String parcelId = request.getParameter("parcelIdField");
 		HttpSession session = request.getSession(true);
 		session.removeAttribute("resultLoadParcel");
-		if (parcelId.equals("123")) {
+		ParcelDAO pDao = new ParcelDAO();
+		
+		boolean f = pDao.isParselInTable(parcelId);
+		
+		
+		
+		if (f && (pDao.getParcel(parcelId).getStatus() == Parcel.STATUS_AT_START)) {
+			pDao.setParcelStatus(Parcel.STATUS_IN_END, parcelId);
 			session.setAttribute("resultLoadParcel", Parcel.PARCEL_LOADED);
-			//response.sendRedirect("./loadparcel");
 			dispatcher = request.getRequestDispatcher("/pages/loadparcel.jsp");
 		} else {
 			session.setAttribute("resultLoadParcel", Parcel.PARCEL_NOT_LOADED);
 			dispatcher = request.getRequestDispatcher("/pages/loadparcel.jsp");
-			//response.sendRedirect("./loadparcel");
 		}
 		
 
